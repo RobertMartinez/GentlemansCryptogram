@@ -80,36 +80,6 @@ function getValue(){
 	}
 	
     }
-       // var cipheredOutput3 = "";
-
- /*   if (mostEmbeddedCipher.length + bestCipheredWordCount < bestCipheredLetters.length){
-	var cipheredIncluded = bestCipheredLetters.slice(0, mostEmbeddedCipher.length+bestCipheredWordCount).join(" ");
-	var cipheredRemainder = bestCipheredLetters.slice(mostEmbeddedCipher.length+bestCipheredWordCount).join(" ");
-	var cipherMessage = cipheredIncluded + " " + "<strong><font color='2F96B4'>" + cipheredRemainder + "</font></strong>";
-	var cipheredOutput3 = "(<font color='2F96B4'>" + mostEmbeddedCipher.length + "</font> of " + (bestCipheredLetters.length - bestCipheredWordCount) + " letters used)";
-	
-    }
-
-    if (mostEmbeddedCipher.length + bestCipheredWordCount === bestCipheredLetters.length){
-	var orange = bestUsedNoteLetters.length;
-	var cipheredIncluded = bestCipheredLetters.slice(0, mostEmbeddedCipher.length+bestCipheredWordCount).join(" ");
-	var noteRemainder = bestNoteLetters.slice(orange).join("");
-	bestSteganographicNote += noteRemainder;
-	var cipherMessage = cipheredIncluded;	
-	var cipheredOutput3 = "<strong><font color='2F96B4'>" + "The Message Fits!" + "</strong></font>";
-    }
-	
-
-    else if (bestUsedNoteLetters.length < bestNoteLetters.length){
-	var orange = bestUsedNoteLetters.length;
-	var cipheredIncluded = bestCipheredLetters.slice(0, mostEmbeddedCipher.length+bestCipheredWordCount).join(" ");
-	var noteRemainder = bestNoteLetters.slice(orange).join("");
-	bestSteganographicNote += noteRemainder;
-	var cipherMessage = cipheredIncluded;	
-	var cipheredOutput3 = "<strong><font color='2F96B4'>" + "The Message Fits!" + "</strong></font>";
-
-    }
-*/
     
     var uppertable = new Array();
     var lowertable1 = new Array();
