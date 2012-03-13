@@ -86,7 +86,7 @@ function getValue(){
 
     if (mostEmbeddedCipher.length + bestCipheredWordCount < bestCipheredLetters.length){
 	for (i=0; i< mostEmbeddedCipher.length + bestCipheredWordCount; i++){
-	    uppertable.push("<td><strong><font color='2F96B4'>" + originalMessageLetters[i] + "</font></strong></td>");
+	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
 	    lowertable1.push("<td><strong><font color='2F96B4'>" + bestCipheredLetters[i] + "</font></strong></td>");
 	}
 	for (i=mostEmbeddedCipher.length + bestCipheredWordCount; i< originalMessageLetters.length; i++){
