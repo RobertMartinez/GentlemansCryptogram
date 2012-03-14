@@ -133,8 +133,38 @@ function decipher(){
     var userInput=document.getElementById("cipherText").value.toLowerCase();
     var userInputNoSpaces = userInput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     var inputLetters = userInputNoSpaces.split("");
+    var alphabet = "abcdefghijklmnopqrstuvwxyz";
+    var alphabetLetters = alphabet.split("");
+    var shiftAmount = 0;
+    var englishWords = "secret";
+    var result = new Array();
 
-    document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + inputLetters.join("") + "</p></div>";
+    for (n=1; n <= 26; n++){
+	shiftAmount = n;
+	//console.log("Shift Amount: " + shiftAmount);
+	
+	var originalMessageLetters = new Array();
+	var cipheredLetters = new Array();
+	for (i=0; i < inputLetters.length; i++){
+	    for (j=0; j < alphabetLetters.length; j++){
+		if (inputLetters[i] === " "){
+		    cipheredLetters.push("-");
+		    originalMessageLetters.push("-");
+		    break;
+		}else if(inputLetters[i] === alphabetLetters[j]){
+		    var caesarShiftAmount = (j + shiftAmount)%26;
+		    cipheredLetters.push(alphabetLetters[caesarShiftAmount]);
+		    originalMessageLetters.push(alphabetLetters[j]);
+		}
+	    }
+	}
+	
+	result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.join("") + "</br>");
+	    
+	console.log("Ciphered Letters: " + cipheredLetters);
+    }
+
+    document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + result.join("") + "</p></div>";
 
 }
    
