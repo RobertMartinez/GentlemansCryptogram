@@ -53,17 +53,17 @@
     </div>
  
     <div align="center" class="container">
-    <div class="container-fluid">
-    <div class="row-fluid">
-    <div class="span12">
-      <header class="jumbotron subhead" id="overview">
+     <header class="jumbotron subhead">
       <h1>Solve Your Cipher</h1>
       <p class="lead">how hard can it be?</p>
       </header>
-      
+     <input type="text" id="cipherText" value="type your secret message here"
+      class="search-query span3" onkeyup="decipher()"
+      style="background-color: #202328; border-style: none; margin-bottom: 10px">
+      </input>
+      <div id="deciphered-message"></div>
       <!--Body content-->
-    </div>
-    </div>
+   </div>
     </div>
      
     </div> <!-- /container -->

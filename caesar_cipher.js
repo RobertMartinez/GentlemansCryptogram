@@ -128,4 +128,13 @@ function getValue(){
     document.getElementById("original-letter").innerHTML = "<div class='well'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + bestSteganographicNote + "</p></div>";
 
 }
+
+function decipher(){
+    var userInput=document.getElementById("cipherText").value.toLowerCase();
+    var userInputNoSpaces = userInput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    var inputLetters = userInputNoSpaces.split("");
+
+    document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + inputLetters.join("") + "</p></div>";
+
+}
    
