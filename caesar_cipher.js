@@ -172,7 +172,11 @@ function decipher(){
 		    console.log(cipheredLetters[i] + " , " + englishWords[j] + " , " + matchedWordCount + " , " + matchedWords);
 		    j++;
 		    break;
-		}else{break;}
+		}else{
+		    matchedWordCount = 0;
+		    matchedWords = [];
+		    j = 0;
+		    break;}
 	    }
 	}
 	console.log(matchedWordCount + " , " + englishWords.length);
