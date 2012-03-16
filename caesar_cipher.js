@@ -152,7 +152,12 @@ function decipher(){
 		    originalMessageLetters.push("-");
 		    break;
 		}else if(inputLetters[i] === alphabetLetters[j]){
-		    var caesarShiftAmount = (j + shiftAmount)%26;
+		    var caesarShiftAmount = (j - shiftAmount);
+		    if(caesarShiftAmount < 0){
+			caesarShiftAmount = caesarShiftAmount + 26;
+		    }
+		    console.log("J: " + j + " , shift amount: " + shiftAmount);
+		    console.log("Caesar Shift amount: " + caesarShiftAmount);
 		    cipheredLetters.push(alphabetLetters[caesarShiftAmount]);
 		    originalMessageLetters.push(alphabetLetters[j]);
 		}
