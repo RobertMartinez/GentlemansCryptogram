@@ -159,37 +159,41 @@ function decipher(){
 	}
 	console.log("Cipher Letters: " + cipheredLetters.join(""));
 
-	
-	var matchedWordCount = 0;
-	var matchedWords = new Array();
-	var j = 0;
-	for (i=0; i < cipheredLetters.length; i++){
-	    while (j < englishWords.length){
-		if (cipheredLetters[i] === englishWords[j]){
-		    matchedWordCount++;
-		    matchedWords.push(i);
-		    console.log(cipheredLetters[i] + " , " + englishWords[j] + " , " + matchedWordCount + " , " + matchedWords);
-		    j++;
-		    break;
-		}else{
-		    matchedWordCount = 0;
-		    matchedWords = [];
-		    j = 0;
-		    break;}
+	var wordTest = function(word){
+	    var matchedWordCount = 0;
+	    var matchedWords = new Array();
+	    var j = 0;
+	    for (i=0; i < cipheredLetters.length; i++){
+		while (j < word.length){
+		    if (cipheredLetters[i] === word[j]){
+			matchedWordCount++;
+			matchedWords.push(i);
+			console.log(cipheredLetters[i] + " , " + word[j] + " , " + matchedWordCount + " , " + matchedWords);
+			j++;
+			break;
+		    }else{
+			matchedWordCount = 0;
+			matchedWords = [];
+			j = 0;
+			break;}
+		}
+	    }
+	    console.log(matchedWordCount + " , " + word.length);
+	    if (matchedWordCount === word.length){
+		result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.slice(0, matchedWords[0]).join("") + "<font color='2F96B4'> " + cipheredLetters.slice(matchedWords[0], matchedWords[matchedWords.length - 1] + 1 ).join("") + " </font>" + cipheredLetters.slice(matchedWords[matchedWords.length - 1] + 1).join("") + "</br>");
+		
+	    }else{
+		result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.join("") + "</br>");
+		console.log("case 2");
 	    }
 	}
-	console.log(matchedWordCount + " , " + englishWords.length);
-	if (matchedWordCount === englishWords.length){
-	    result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.slice(0, matchedWords[0]).join("") + "<font color='2F96B4'> " + cipheredLetters.slice(matchedWords[0], matchedWords[matchedWords.length - 1] + 1 ).join("") + " </font>" + cipheredLetters.slice(matchedWords[matchedWords.length - 1] + 1).join("") + "</br>");
-	    
-	}else{
-	    result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.join("") + "</br>");
-	    console.log("case 2");
-	}
-	    
+	
+	wordTest(englishWords);
+
     }
 
     document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + result.join("") + "</p></div>";
+    
 
 }
    
