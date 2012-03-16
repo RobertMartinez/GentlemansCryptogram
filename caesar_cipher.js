@@ -142,13 +142,11 @@ function decipher(){
     for (n=1; n <= 26; n++){
 	shiftAmount = n;
 	//console.log("Shift Amount: " + shiftAmount);
-	var originalMessageLetters = new Array();
 	var cipheredLetters = new Array();
 	for (i=0; i < inputLetters.length; i++){
 	    for (j=0; j < alphabetLetters.length; j++){
 		if (inputLetters[i] === " "){
 		    cipheredLetters.push("");
-		    originalMessageLetters.push("");
 		    break;
 		}else if(inputLetters[i] === alphabetLetters[j]){
 		    var caesarShiftAmount = (j - shiftAmount);
@@ -156,11 +154,12 @@ function decipher(){
 			caesarShiftAmount = caesarShiftAmount + 26;
 		    }
 		    cipheredLetters.push(alphabetLetters[caesarShiftAmount]);
-		    originalMessageLetters.push(alphabetLetters[j]);
 		}
 	    }
 	}
 	console.log("Cipher Letters: " + cipheredLetters.join(""));
+
+	
 	var matchedWordCount = 0;
 	var matchedWords = new Array();
 	var j = 0;
@@ -182,7 +181,7 @@ function decipher(){
 	console.log(matchedWordCount + " , " + englishWords.length);
 	if (matchedWordCount === englishWords.length){
 	    result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.slice(0, matchedWords[0]).join("") + "<font color='2F96B4'> " + cipheredLetters.slice(matchedWords[0], matchedWords[matchedWords.length - 1] + 1 ).join("") + " </font>" + cipheredLetters.slice(matchedWords[matchedWords.length - 1] + 1).join("") + "</br>");
-	    console.log(cipheredLetters.slice(0, matchedWords[0]).join("") + " , " + cipheredLetters.slice(matchedWords[0], matchedWords[matchedWords.length - 1] + 1).join("") + " , " + cipheredLetters.slice(matchedWords[matchedWords.length - 1] + 1).join("") + " , matchedWords length: " + matchedWords[matchedWords.length - 1]);
+	    
 	}else{
 	    result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.join("") + "</br>");
 	    console.log("case 2");
