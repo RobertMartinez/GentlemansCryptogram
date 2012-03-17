@@ -1,9 +1,11 @@
+var sel = saveSelection();
 function getValue(){
     var userInput=document.getElementById("messageText").value.toLowerCase();
     var userInputNoSpaces = userInput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     var inputLetters = userInputNoSpaces.split("");
 
     var testuserInput=document.getElementById("alsoletterText").innerHTML;
+    
     console.log(testuserInput)
     function strip(html)
     {
@@ -143,6 +145,8 @@ function getValue(){
 
 
 }
+restoreSelection(sel);
+
 
 function decipher(){
     var userInput=document.getElementById("cipherText").value.toLowerCase();
