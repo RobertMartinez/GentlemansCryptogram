@@ -1,11 +1,24 @@
 function getValue(){
     var userInput=document.getElementById("messageText").value.toLowerCase();
     var userInputNoSpaces = userInput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-
     var inputLetters = userInputNoSpaces.split("");
 
-    var userNote=document.getElementById("letterText").value;
-    var noteLetters = userNote.split("");
+    var testuserInput=document.getElementById("alsoletterText").innerHTML;
+    console.log(testuserInput)
+    function strip(html)
+    {
+	var tmp = document.createElement("DIV");
+	tmp.innerHTML = html;
+	return tmp.textContent||tmp.innerText;
+    }
+    noteLetters = strip(testuserInput).split("");
+    console.log(testuserInput);
+
+
+    
+   //var userNote=document.getElementById("letterText").value;
+    //var noteLetters = userNote.split("");
+    //console.log(noteLetters);
 
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var alphabetLetters = alphabet.split("");
@@ -125,7 +138,9 @@ function getValue(){
     document.getElementById("ciphered-message1").innerHTML = cipheredOutput1;
     document.getElementById("ciphered-message2").innerHTML = cipheredOutput2;
     document.getElementById("ciphered-message3").innerHTML = cipheredOutput3;
-    document.getElementById("original-letter").innerHTML = "<div class='well'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + bestSteganographicNote + "</p></div>";
+    //document.getElementById("original-letter").innerHTML = "<div class='well'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + bestSteganographicNote + "</p></div>";
+    document.getElementById("alsoletterText").innerHTML = bestSteganographicNote;
+
 
 }
 
