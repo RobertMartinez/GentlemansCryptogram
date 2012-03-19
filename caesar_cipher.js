@@ -1,9 +1,93 @@
+function saveSelection(containerEl) {
+    var charIndex = 0, start = 0, end = 0, foundStart = false, stop = {};
+    var sel = rangy.getSelection(), range;
+
+    function traverseTextNodes(node, range) {
+        if (node.nodeType == 3) {
+            if (!foundStart && node == range.startContainer) {
+                start = charIndex + range.startOffset;
+                foundStart = true;
+            }
+            if (foundStart && node == range.endContainer) {
+                end = charIndex + range.endOffset;
+                throw stop;
+            }
+            charIndex += node.length;
+        } else {
+            for (var i = 0, len = node.childNodes.length; i < len; ++i) {
+                traverseTextNodes(node.childNodes[i], range);
+            }
+        }
+    }
+    
+    if (sel.rangeCount) {
+        try {
+            traverseTextNodes(containerEl, sel.getRangeAt(0));
+        } catch (ex) {
+            if (ex != stop) {
+                throw ex;
+            }
+        }
+    }
+
+    return {
+        start: start,
+        end: end
+    };
+}
+
+function restoreSelection(containerEl, savedSel) {
+    var charIndex = 0, range = rangy.createRange(), foundStart = false, stop = {};
+    range.collapseToPoint(containerEl, 0);
+    
+    function traverseTextNodes(node) {
+        if (node.nodeType == 3) {
+            var nextCharIndex = charIndex + node.length;
+            if (!foundStart && savedSel.start >= charIndex && savedSel.start <= nextCharIndex) {
+                range.setStart(node, savedSel.start - charIndex);
+                foundStart = true;
+            }
+            if (foundStart && savedSel.end >= charIndex && savedSel.end <= nextCharIndex) {
+                range.setEnd(node, savedSel.end - charIndex);
+                throw stop;
+            }
+            charIndex = nextCharIndex;
+        } else {
+            for (var i = 0, len = node.childNodes.length; i < len; ++i) {
+                traverseTextNodes(node.childNodes[i]);
+            }
+        }
+    }
+    
+    try {
+        traverseTextNodes(containerEl);
+    } catch (ex) {
+        if (ex == stop) {
+            rangy.getSelection().setSingleRange(range);
+        } else {
+            throw ex;
+        }
+    }
+}
+
+
+function formatText() {
+    var el = document.getElementById('pad');
+    var savedSel = saveSelection(el);
+    el.innerHTML = el.innerHTML.replace(/(<([^>]+)>)/ig,"");
+    el.innerHTML = el.innerHTML.replace(/([0-9])/ig,"<font color='red'>$1</font>");
+
+    // Restore the original selection
+    restoreSelection(el, savedSel);
+}
+
+
 function getValue(){
     var userInput=document.getElementById("messageText").value.toLowerCase();
     var userInputNoSpaces = userInput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     var inputLetters = userInputNoSpaces.split("");
-    var testuserInput=document.getElementById("alsoletterText").innerHTML;
-    
+    var testuserInput=document.getElementById("alsoletterText");
+    var savedSel = saveSelection(testuserInput);
     console.log(testuserInput)
     function strip(html)
     {
@@ -11,8 +95,9 @@ function getValue(){
 	tmp.innerHTML = html;
 	return tmp.textContent||tmp.innerText;
     }
-    noteLetters = strip(testuserInput).split("");
-    console.log(testuserInput);
+    noteLetters = strip(testuserInput.innerHTML).split("");
+    console.log(noteLetters);
+    console.log(noteLetters.length);
 
 
     
@@ -34,7 +119,7 @@ function getValue(){
 
     for (n=1; n <= 25; n++){
 	shiftAmount = n;
-	//console.log("Shift Amount: " + shiftAmount);
+	console.log("Shift Amount: " + shiftAmount);
 
 	var originalMessageLetters = new Array();
 	var cipheredLetters = new Array();
@@ -51,7 +136,7 @@ function getValue(){
 		}
 	    }
 	}
-	//console.log("Ciphered Letters: " + cipheredLetters);
+	console.log("Ciphered Letters: " + cipheredLetters);
 	
 	var steganographicNote = "";
 	var usedCipherLetters = new Array();
@@ -106,10 +191,14 @@ function getValue(){
 	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
 	    lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
 	}
+	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
+	var cipheredOutput2 = "(Caesar Shifted <font color='2F96B4'>" + bestShiftAmount + "</font> places)";
 	var cipheredOutput3 = "(<font color='2F96B4'>" + mostEmbeddedCipher.length + "</font> of " + (bestCipheredLetters.length - bestCipheredWordCount) + " letters used)";
 
     }
-    if (mostEmbeddedCipher.length + bestCipheredWordCount === bestCipheredLetters.length){
+
+
+    if (mostEmbeddedCipher.length + bestCipheredWordCount === bestCipheredLetters.length || bestUsedNoteLetters.length < bestNoteLetters.length){
 	var orange = bestUsedNoteLetters.length;
 	var noteRemainder = bestNoteLetters.slice(orange).join("");
 	bestSteganographicNote += noteRemainder;
@@ -117,29 +206,19 @@ function getValue(){
 	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
 	    lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
 	}
+	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
+	var cipheredOutput2 = "(Caesar Shifted <font color='2F96B4'>" + bestShiftAmount + "</font> places)";
 	var cipheredOutput3 = "<strong><font color='2F96B4'>" + "The Message Fits!" + "</strong></font>";
     }
-	else if (bestUsedNoteLetters.length < bestNoteLetters.length){
-	    var orange = bestUsedNoteLetters.length;
-	    var noteRemainder = bestNoteLetters.slice(orange).join("");
-	    bestSteganographicNote += noteRemainder;
-	    for (i=0; i< bestCipheredLetters.length; i++){
-		uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
-		lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
-	    }
-	    var cipheredOutput3 = "<strong><font color='2F96B4'>" + "The Message Fits!" + "</strong></font>";
-	}
-    var cipherMessage="<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
-    var cipheredOutput1 = cipherMessage;
-    var cipheredOutput2 = "(Caesar Shifted <font color='2F96B4'>" + bestShiftAmount + "</font> places)";
-    //cipheredOutput2 += "</br>(<font color='2F96B4'>" + mostEmbeddedCipher.length + "</font> of " + (bestCipheredLetters.length - bestCipheredWordCount) + " letters used)";
+    
+    
 	
-
     document.getElementById("ciphered-message1").innerHTML = cipheredOutput1;
     document.getElementById("ciphered-message2").innerHTML = cipheredOutput2;
     document.getElementById("ciphered-message3").innerHTML = cipheredOutput3;
-    //document.getElementById("original-letter").innerHTML = "<div class='well'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + bestSteganographicNote + "</p></div>";
     document.getElementById("alsoletterText").innerHTML = bestSteganographicNote;
+    console.log(bestSteganographicNote);
+    restoreSelection(testuserInput, savedSel);
 
 
 }
