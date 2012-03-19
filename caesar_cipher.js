@@ -70,18 +70,6 @@ function restoreSelection(containerEl, savedSel) {
     }
 }
 
-
-function formatText() {
-    var el = document.getElementById('pad');
-    var savedSel = saveSelection(el);
-    el.innerHTML = el.innerHTML.replace(/(<([^>]+)>)/ig,"");
-    el.innerHTML = el.innerHTML.replace(/([0-9])/ig,"<font color='red'>$1</font>");
-
-    // Restore the original selection
-    restoreSelection(el, savedSel);
-}
-
-
 function getValue(){
     var userInput=document.getElementById("messageText").value.toLowerCase();
     var userInputNoSpaces = userInput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
