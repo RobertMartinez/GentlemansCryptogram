@@ -221,6 +221,12 @@ function getMessage(){
     var userInputNoSpaces = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     var inputLetters = userInputNoSpaces.split("");
     console.log("inputLetters: " + inputLetters.length);
+    var letterText=document.getElementById("alsoletterText");
+    var savedSel = saveSelection(userInput);
+    noteLetters = strip(letterText.innerHTML).split("");
+    console.log(noteLetters);
+    console.log(noteLetters.length);
+
     if (inputLetters.length === 0){
 	document.getElementById("ciphered-message1").innerHTML = "Enter Your Secret Message";
 	document.getElementById("ciphered-message2").innerHTML = "</br>";
@@ -230,12 +236,6 @@ function getMessage(){
 	document.getElementById("ciphered-message2").innerHTML = "</br>";
 	document.getElementById("ciphered-message3").innerHTML = "</br>";
     }else{
-	var letterText=document.getElementById("alsoletterText");
-	var savedSel = saveSelection(userInput);
-    
-	noteLetters = strip(letterText.innerHTML).split("");
-	console.log(noteLetters);
-	console.log(noteLetters.length);
 	encipher(inputLetters, noteLetters);
 	restoreSelection(userInput, savedSel);
     }
