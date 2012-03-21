@@ -143,11 +143,6 @@ function encipher(inputLetters, noteLetters){
 	    bestSteganographicNote = steganographicNote;
 	    bestNoteLetters = noteLetters;
 	    bestUsedNoteLetters = usedNoteLetters;
-	    //console.log("Used Cipher Letters: " + usedCipherLetters);
-	    //console.log("Most Embedded Cipher: " + mostEmbeddedCipher);
-	    //console.log("Shift Amount: " + shiftAmount);
-	    //console.log("Best Shift Amount: " + bestShiftAmount);
-	    //console.log("Best Ciphered Letters: " + bestCipheredLetters);
 	}	
     }
     
@@ -231,6 +226,8 @@ function getMessage(){
 	document.getElementById("ciphered-message1").innerHTML = "Enter Your Secret Message";
 	document.getElementById("ciphered-message2").innerHTML = "</br>";
 	document.getElementById("ciphered-message3").innerHTML = "</br>";
+	document.getElementById("alsoletterText").innerHTML = noteLetters.join("");
+	
     }else if (noteLetters.length <= inputLetters.length){
 	document.getElementById("ciphered-message1").innerHTML = "Espionage takes a little more effort than that";
 	document.getElementById("ciphered-message2").innerHTML = "</br>";
@@ -241,47 +238,37 @@ function getMessage(){
     }
 }
 
-
-function decipher(){
-    var userInput=document.getElementById("cipherText").value.toLowerCase();
-    var userInputNoSpaces = userInput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-    var inputLetters = userInputNoSpaces.split("");
+function caesarShiftLeft(shiftAmount, inputLetters){
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var alphabetLetters = alphabet.split("");
-    var shiftAmount = 0;
-    var englishWords = "secret";
-    var result = new Array();
-
-    for (n=1; n <= 26; n++){
-	shiftAmount = n;
-	//console.log("Shift Amount: " + shiftAmount);
-	var cipheredLetters = new Array();
-	for (i=0; i < inputLetters.length; i++){
-	    for (j=0; j < alphabetLetters.length; j++){
-		if (inputLetters[i] === " "){
-		    cipheredLetters.push("");
-		    break;
-		}else if(inputLetters[i] === alphabetLetters[j]){
-		    var caesarShiftAmount = (j - shiftAmount);
-		    if(caesarShiftAmount < 0){
-			caesarShiftAmount = caesarShiftAmount + 26;
-		    }
-		    cipheredLetters.push(alphabetLetters[caesarShiftAmount]);
+    var cipherShiftedLetters = new Array();
+    for (i=0; i < inputLetters.length; i++){
+	for (j=0; j < alphabetLetters.length; j++){
+	    if (inputLetters[i] === " "){
+		cipherShiftedLetters.push("");
+		break;
+	    }else if(inputLetters[i] === alphabetLetters[j]){
+		var caesarShiftAmount = (j - shiftAmount);
+		if(caesarShiftAmount < 0){
+		    caesarShiftAmount = caesarShiftAmount + 26;
 		}
+		cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
 	    }
 	}
-	console.log("Cipher Letters: " + cipheredLetters.join(""));
+    }
+    return cipherShiftedLetters;
+}
 
-	var wordTest = function(word){
+function wordTest(word, cipher){
 	    var matchedWordCount = 0;
 	    var matchedWords = new Array();
 	    var j = 0;
-	    for (i=0; i < cipheredLetters.length; i++){
+	    for (i=0; i < cipher.length; i++){
 		while (j < word.length){
-		    if (cipheredLetters[i] === word[j]){
+		    if (cipher[i] === word[j]){
 			matchedWordCount++;
 			matchedWords.push(i);
-			console.log(cipheredLetters[i] + " , " + word[j] + " , " + matchedWordCount + " , " + matchedWords);
+			console.log(cipher[i] + " , " + word[j] + " , " + matchedWordCount + " , " + matchedWords);
 			j++;
 			break;
 		    }else{
@@ -293,16 +280,38 @@ function decipher(){
 	    }
 	    console.log(matchedWordCount + " , " + word.length);
 	    if (matchedWordCount === word.length){
-		result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.slice(0, matchedWords[0]).join("") + "<font color='2F96B4'> " + cipheredLetters.slice(matchedWords[0], matchedWords[matchedWords.length - 1] + 1 ).join("") + " </font>" + cipheredLetters.slice(matchedWords[matchedWords.length - 1] + 1).join("") + "</br>");
-		
+		return matchedWords;
 	    }else{
-		result.push("Shifted " + shiftAmount + " places: " + cipheredLetters.join("") + "</br>");
 		console.log("case 2");
+		return false;
 	    }
 	}
-	wordTest(englishWords);
+
+function decipher(){
+    var userInput=document.getElementById("cipherText");
+    var inputLetters = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '').split("");
+    var englishWords = "secret";
+    var finalResult = new Array();
+    
+    for (n=1; n <= 26; n++){
+	var shiftAmount = n;
+	var result = ["Shifted " + shiftAmount + " places: "];
+	console.log("Shift Amount: " + shiftAmount);
+	
+	var cipheredLetters = caesarShiftLeft(shiftAmount, inputLetters);
+	console.log("Cipher Letters: " + cipheredLetters.join(""));
+
+	if(wordTest(englishWords, cipheredLetters)){
+	    var matchedList = wordTest(englishWords, cipheredLetters);
+	    console.log("matched list outside: " + matchedList);
+	    result.push(cipheredLetters.slice(0, matchedList[0]).join("") + "<font color='2F96B4'> " + cipheredLetters.slice(matchedList[0], matchedList[matchedList.length - 1] + 1 ).join("") + " </font>" + cipheredLetters.slice(matchedList[matchedList.length - 1] + 1).join("") + "</br>");
+	    console.log("Result: " + result.join(""));
+	}else{
+	    result.push(cipheredLetters.join("") + "</br>");
+	}
+	finalResult.push(result.join(""));
     }
 
-    document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + result.join("") + "</p></div>";
+    document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + finalResult.join("") + "</p></div>";
 }
    
