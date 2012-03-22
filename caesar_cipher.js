@@ -287,11 +287,34 @@ function wordTest(word, cipher){
 	    }
 	}
 
+
+var secretSauceWords = ["secret", "you", "message", "type", "here"];
+var mostCommonEnglishWords = ["the", "be", "to", "of", "and", "in", "that", "have", "it", "for", "not", "on", "with", "he", "as", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", "person", "into", "year", "your", "good"]
+var englishWords = mostCommonEnglishWords.concat(secretSauceWords);
+
+function removeRoots(array){
+	    for (i=0; i < array.length - 1; i++){
+		console.log("array[i][0] is: " + array[i][0] + " and array[i+1][0] is: " + array[i+1][0]);
+		if (array[i][0] === array[i+1][0]){
+		console.log("array[i][0].length is: " + array[i].length + " and array[i+1][0].length is: " + array[i+1].length);
+		    if (array[i].length > array[i+1].length){
+			console.log("My array was: " + array);
+			array.splice(i+1, 1)
+			console.log("My array now is: " + array);
+		    }else if (array[i].length < array[i+1].length){
+			console.log("My array was: " + array);
+			array.splice(i, 1)
+			console.log("My array now is: " + array);
+		    }
+		}
+	    }
+}
+ 
 function decipher(){
     var userInput=document.getElementById("cipherText");
     var inputLetters = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '').split("");
-    var englishWords = "secret";
     var finalResult = new Array();
+    var matchedList = new Array();
     
     for (n=1; n <= 26; n++){
 	var shiftAmount = n;
@@ -301,16 +324,56 @@ function decipher(){
 	var cipheredLetters = caesarShiftLeft(shiftAmount, inputLetters);
 	console.log("Cipher Letters: " + cipheredLetters.join(""));
 
-	if(wordTest(englishWords, cipheredLetters)){
-	    var matchedList = wordTest(englishWords, cipheredLetters);
-	    console.log("matched list outside: " + matchedList);
-	    result.push(cipheredLetters.slice(0, matchedList[0]).join("") + "<font color='2F96B4'> " + cipheredLetters.slice(matchedList[0], matchedList[matchedList.length - 1] + 1 ).join("") + " </font>" + cipheredLetters.slice(matchedList[matchedList.length - 1] + 1).join("") + "</br>");
-	    console.log("Result: " + result.join(""));
-	}else{
-	    result.push(cipheredLetters.join("") + "</br>");
+	for (m=0; m < englishWords.length; m++){
+	    console.log("englishWords[m]: " + englishWords[m] + " , cipheredLetters: " + cipheredLetters);
+	    if(wordTest(englishWords[m], cipheredLetters)){
+		matchedList.push(wordTest(englishWords[m], cipheredLetters));
+		console.log("Matched List Array: " + matchedList);
+	    }
 	}
+	function sortfunction(a, b){
+	    console.log("A is: " + a + " and B is: " + b);
+	    return a[0] - b[0];
+	}
+	    
+	matchedList.sort(sortfunction);
+	removeRoots(matchedList);
+
+	console.log("Matched List Array Sorted: " + matchedList);
+	var r = 0;
+	var p = 0;
+	if(matchedList.length > 0){
+	    console.log("matched list length: " + matchedList.length);
+	    while (r < cipheredLetters.length){
+		
+		if ( p < matchedList.length){
+		    console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
+		    if (r === matchedList[p][0]){
+			result.push("<font color='2F96B4'> " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join("") + " </font>");
+		 	r = matchedList[p][matchedList[p].length - 1] + 1;
+			p++;
+			console.log("r: " + r + " , and P is: " + p);
+		    }
+		    else{
+			console.log(r);
+			result.push(cipheredLetters[r]);
+			r++;
+		    }
+		    
+		}else{
+		    console.log(r);
+		    result.push(cipheredLetters[r]);
+		    r++;
+		}
+	    }
+		console.log("Result: " + result.join(""));
+	    }else{
+		result.push(cipheredLetters.join(""));
+	}
+	result.push("</br>");
 	finalResult.push(result.join(""));
-    }
+	matchedList = [];
+}
 
     document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + finalResult.join("") + "</p></div>";
 }
