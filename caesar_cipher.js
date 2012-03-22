@@ -268,7 +268,7 @@ function wordTest(word, cipher){
 		    if (cipher[i] === word[j]){
 			matchedWordCount++;
 			matchedWords.push(i);
-			console.log(cipher[i] + " , " + word[j] + " , " + matchedWordCount + " , " + matchedWords);
+			//console.log(cipher[i] + " , " + word[j] + " , " + matchedWordCount + " , " + matchedWords);
 			j++;
 			break;
 		    }else{
@@ -278,11 +278,11 @@ function wordTest(word, cipher){
 			break;}
 		}
 	    }
-	    console.log(matchedWordCount + " , " + word.length);
+	    //console.log(matchedWordCount + " , " + word.length);
 	    if (matchedWordCount === word.length){
 		return matchedWords;
 	    }else{
-		console.log("case 2");
+		//console.log("case 2");
 		return false;
 	    }
 	}
@@ -293,15 +293,15 @@ var mostCommonEnglishWords = ["the", "be", "to", "of", "and", "in", "that", "hav
 var englishWords = mostCommonEnglishWords.concat(secretSauceWords);
 
 function removeRoots(array){
-	    for (i=0; i < array.length - 1; i++){
-		console.log("array[i][0] is: " + array[i][0] + " and array[i+1][0] is: " + array[i+1][0]);
-		if (array[i][0] === array[i+1][0]){
-		console.log("array[i][0].length is: " + array[i].length + " and array[i+1][0].length is: " + array[i+1].length);
-		    if (array[i].length > array[i+1].length){
+	    for (i=1; i < array.length; i++){
+		console.log("Array length is: " + array.length + " i is: " + i + " array[i][0] is: " + array[i][0] + " and array[i+1][0] is: " + array[i-1][0]);
+		if (array[i][0] === array[i-1][0]){
+		console.log("array[i][0].length is: " + array[i].length + " and array[i+1][0].length is: " + array[i-1].length);
+		    if (array[i].length > array[i-1].length){
 			console.log("My array was: " + array);
-			array.splice(i+1, 1)
+			array.splice(i-1, 1)
 			console.log("My array now is: " + array);
-		    }else if (array[i].length < array[i+1].length){
+		    }else if (array[i].length < array[i-1].length){
 			console.log("My array was: " + array);
 			array.splice(i, 1)
 			console.log("My array now is: " + array);
@@ -325,10 +325,10 @@ function decipher(){
 	console.log("Cipher Letters: " + cipheredLetters.join(""));
 
 	for (m=0; m < englishWords.length; m++){
-	    console.log("englishWords[m]: " + englishWords[m] + " , cipheredLetters: " + cipheredLetters);
+	    //console.log("englishWords[m]: " + englishWords[m] + " , cipheredLetters: " + cipheredLetters);
 	    if(wordTest(englishWords[m], cipheredLetters)){
 		matchedList.push(wordTest(englishWords[m], cipheredLetters));
-		console.log("Matched List Array: " + matchedList);
+		//console.log("Matched List Array: " + matchedList);
 	    }
 	}
 	function sortfunction(a, b){
