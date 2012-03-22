@@ -288,8 +288,8 @@ function wordTest(word, cipher){
 	}
 
 
-var secretSauceWords = ["secret", "you", "message", "type", "hand", "here"];
-var mostCommonEnglishWords = ["the", "be", "to", "of", "and", "in", "that", "have", "it", "for", "not", "on", "with", "he", "as", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", "person", "into", "year", "your", "good"]
+var secretSauceWords = ["secret", "you", "message", "type", "hello", "name", "hand", "here"];
+var mostCommonEnglishWords = ["the", "be", "to", "of", "and", "in", "that", "have", "it", "for", "not", "on", "with", "he", "as", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "is", "time", "no", "just", "him", "know", "take", "person", "into", "year", "your", "good"]
 var englishWords = mostCommonEnglishWords.concat(secretSauceWords);
 
 function removeRoots(array){
