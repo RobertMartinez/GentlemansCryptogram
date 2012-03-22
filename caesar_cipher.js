@@ -288,7 +288,7 @@ function wordTest(word, cipher){
 	}
 
 
-var secretSauceWords = ["secret", "you", "message", "type", "here"];
+var secretSauceWords = ["secret", "you", "message", "type", "hand", "here"];
 var mostCommonEnglishWords = ["the", "be", "to", "of", "and", "in", "that", "have", "it", "for", "not", "on", "with", "he", "as", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", "person", "into", "year", "your", "good"]
 var englishWords = mostCommonEnglishWords.concat(secretSauceWords);
 
@@ -348,17 +348,20 @@ function decipher(){
 		
 		if ( p < matchedList.length){
 		    console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
-		    if (r === matchedList[p][0]){
-			result.push("<font color='2F96B4'> " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join("") + " </font>");
-		 	r = matchedList[p][matchedList[p].length - 1] + 1;
-			p++;
-			console.log("r: " + r + " , and P is: " + p);
-		    }
-		    else{
-			console.log(r);
-			result.push(cipheredLetters[r]);
-			r++;
-		    }
+		    if (matchedList[p][0] >= r ){
+			console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
+			if (r === matchedList[p][0]){
+			    result.push("<font color='2F96B4'> " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join("") + " </font>");
+		 	    r = matchedList[p][matchedList[p].length - 1] + 1;
+			    p++;
+			    console.log("r: " + r + " , and P is: " + p);
+			}
+			else{
+			    console.log(r);
+			    result.push(cipheredLetters[r]);
+			    r++;
+			}
+		    }else{p++;}
 		    
 		}else{
 		    console.log(r);
