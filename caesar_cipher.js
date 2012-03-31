@@ -259,59 +259,63 @@ function caesarShiftLeft(shiftAmount, inputLetters){
     return cipherShiftedLetters;
 }
 
-function wordTest(word, cipher){
-	    var matchedWordCount = 0;
-	    var matchedWords = new Array();
-	    var j = 0;
-	    for (i=0; i < cipher.length; i++){
-		while (j < word.length){
-		    if (cipher[i] === word[j]){
-			matchedWordCount++;
-			matchedWords.push(i);
-			//console.log(cipher[i] + " , " + word[j] + " , " + matchedWordCount + " , " + matchedWords);
-			j++;
-			break;
-		    }else{
-			matchedWordCount = 0;
-			matchedWords = [];
-			j = 0;
-			break;}
-		}
-	    }
-	    //console.log(matchedWordCount + " , " + word.length);
-	    if (matchedWordCount === word.length){
-		return matchedWords;
-	    }else{
-		//console.log("case 2");
-		return false;
+function wordTest(word, cipher, cipherStartingPosition){
+    var matchedWordCount = 0;
+    var matchedWords = new Array();
+    var j = 0;
+    //console.log("---------------------------------------WORD TEST STARTS HERE--------------------------------   " + word);		
+    //console.log("cipherStartingPosition is: " + cipherStartingPosition);
+    if (cipherStartingPosition + word.length <= cipher.length){
+	for (i=cipherStartingPosition; i <= cipherStartingPosition + word.length; i++){
+	    //console.log("i: " + i);
+	    while (j < word.length){
+		if (cipher[i] === word[j]){
+		    matchedWordCount++;
+		    matchedWords.push(i);
+		    //console.log(cipher[i] + " , " + word[j] + " , " + matchedWordCount + " , " + matchedWords);
+		    j++;
+		    break;
+		}else{
+		    matchedWordCount = 0;
+		    matchedWords = [];
+		    j = 0;
+		    //console.log("No Case 1");
+		    return false;}
 	    }
 	}
-
-
-var secretSauceWords = ["secret", "message", "light", "respond", "continue", "correspondence", "seen", "kind", "type", "hello", "name", "hand", "here", "abort", "mission", "plan"];
-var mostCommonEnglishWords = ["the", "be", "to", "of", "and", "in", "that", "have", "it", "for", "not", "on", "with", "he", "as", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all","you", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "is", "time", "no", "just", "him", "know", "take", "person", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us"]
-var englishWords = mostCommonEnglishWords.concat(secretSauceWords);
+    }
+    //console.log(matchedWordCount + " , " + word.length);
+    if (matchedWordCount === word.length){
+	console.log("---------------------------------------------------------------------------------------------- " + word + " is a match!");
+	return matchedWords;
+    }else{
+	//console.log("No Case 2");
+	return false;
+    }
+}
 
 function sortfunctionByRoots(a, b){
     //console.log("A is: " + a[0] + " and B is: " + b[0] + " and the difference is: " + (a[0] - b[0]));
     return b.length - a.length;
 	}
 englishWords.sort(sortfunctionByRoots);
-console.log(englishWords);
+//console.log(englishWords);
 
+
+//this is doing something, if I type "we" after "type your message here" I get a funny recalculation of found words
 function removeRoots(array){
 	    for (i=1; i < array.length; i++){
-		console.log("Array length is: " + array.length + " i is: " + i + " array[i][0] is: " + array[i][0] + " and array[i+1][0] is: " + array[i-1][0]);
+	//	console.log("Array length is: " + array.length + " i is: " + i + " array[i][0] is: " + array[i][0] + " and array[i+1][0] is: " + array[i-1][0]);
 		if (array[i][0] === array[i-1][0]){
-		console.log("array[i][0].length is: " + array[i].length + " and array[i+1][0].length is: " + array[i-1].length);
+	//	console.log("array[i][0].length is: " + array[i].length + " and array[i+1][0].length is: " + array[i-1].length);
 		    if (array[i].length > array[i-1].length){
-			console.log("My array was: " + array);
+	//		console.log("My array was: " + array);
 			array.splice(i-1, 1)
-			console.log("My array now is: " + array);
+	//		console.log("My array now is: " + array);
 		    }else if (array[i].length < array[i-1].length){
-			console.log("My array was: " + array);
+	//		console.log("My array was: " + array);
 			array.splice(i, 1)
-			console.log("My array now is: " + array);
+	//		console.log("My array now is: " + array);
 		    }
 		}
 	    }
@@ -326,23 +330,37 @@ function decipher(){
     for (n=1; n <= 26; n++){
 	var shiftAmount = n;
 	var result = ["Shifted " + shiftAmount + " places: "];
-	console.log("Shift Amount: " + shiftAmount);
+	console.log("SHIFT AMOUNT: " + shiftAmount);
 	
 	var cipheredLetters = caesarShiftLeft(shiftAmount, inputLetters);
 	console.log("Cipher Letters: " + cipheredLetters.join(""));
-
-	
-	    for (m=0; m < englishWords.length; m++){
-		//console.log("englishWords[m]: " + englishWords[m] + " , cipheredLetters: " + cipheredLetters);
-		if(wordTest(englishWords[m], cipheredLetters)){
-		    matchedList.push(wordTest(englishWords[m], cipheredLetters));
-		    console.log("M is: " + m + " and the word is: " + englishWords[m]);
-		    
+//	console.log("------------------------------DECIPHER STARTS HERE-------------------------------");
+	var y = 0;
+	var m = 0;
+	while(y <= cipheredLetters.length){
+	    console.log("y = " + y + " , " + cipheredLetters[y]);
+	    if (y < cipheredLetters.length){
+		while(m < englishWords.length){
+		    //console.log("englishWords[m]: " + englishWords[m] + " , first letter: " + englishWords[m][0] + " , cipher letter " + cipheredLetters[y] + " , place in cipher: " + y);
+		    if(englishWords[m][0] === cipheredLetters[y] && wordTest(englishWords[m], cipheredLetters, y)){   
+			matchedList.push(wordTest(englishWords[m], cipheredLetters, y));
+			y = y + englishWords[m].length - 1;
+			//console.log("y is jumping ahead to: " + y);
+			m = 0;
+			break;
+			//console.log("M is: " + m + " and the word is: " + englishWords[m]);
+		    }else if (m === englishWords.length - 1){
+			m = 0;
+			break;
+		    }else{m++;}
 		}
-	    }
+		y++;
+	    
+	    }else{break;}
+	}
 	
 	function sortfunction(a, b){
-	    console.log("A is: " + a + " and B is: " + b);
+	    //console.log("A is: " + a + " and B is: " + b);
 	    return a[0] - b[0];
 	}
 	    
@@ -353,29 +371,29 @@ function decipher(){
 	var r = 0;
 	var p = 0;
 	if(matchedList.length > 0){
-	    console.log("matched list length: " + matchedList.length);
+	    //console.log("matched list length: " + matchedList.length);
 	    while (r < cipheredLetters.length){
 		
 		if ( p < matchedList.length){
-		    console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
+		    //console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
 		    if (matchedList[p][0] >= r ){
-			console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
+			//console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
 			if (r === matchedList[p][0]){
 			    result.push("<font color='2F96B4'> " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join("") + " </font>");
 			    console.log("The word is: " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join(""));
 		 	    r = matchedList[p][matchedList[p].length - 1] + 1;
 			    p++;
-			    console.log("r: " + r + " , and P is: " + p);
+			    //console.log("r: " + r + " , and P is: " + p);
 			}
 			else{
-			    console.log(r);
+			    //console.log(r);
 			    result.push(cipheredLetters[r]);
 			    r++;
 			}
 		    }else{p++;}
 		    
 		}else{
-		    console.log(r);
+		    //console.log(r);
 		    result.push(cipheredLetters[r]);
 		    r++;
 		}
