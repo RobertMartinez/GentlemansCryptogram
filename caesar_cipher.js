@@ -77,12 +77,44 @@ function strip(html)
 	return tmp.textContent||tmp.innerText;
     }
 
-function encipher(inputLetters, noteLetters){
-
+function caesarShift(shiftAmount, inputLetters, direction){
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var alphabetLetters = alphabet.split("");
+    var cipherShiftedLetters = new Array();
+    
+    for (i=0; i < inputLetters.length; i++){
+	for (j=0; j < alphabetLetters.length; j++){
+	    if (inputLetters[i] === " "){
+		cipherShiftedLetters.push("-");
+		break;
+	    }else if(inputLetters[i] === alphabetLetters[j]){
+		switch (direction){
+		case "left":
+		    console.log("Shifting Left");
+		    var caesarShiftAmount = (j - shiftAmount);
+		    if(caesarShiftAmount < 0){
+			caesarShiftAmount = caesarShiftAmount + 26;
+		    }
+		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
+		    break;
+		case "right":
+		    console.log("Shifting Hooray");
+		    var caesarShiftAmount = (j + shiftAmount)%26;
+		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
+		    break;
+		case "none":	
+		    console.log("Not Shifting");
+		    cipherShiftedLetters.push(alphabetLetters[j]);
+		    break;
+		}
+	    }
+	}
+    }
+    return cipherShiftedLetters;
+}
+
+function encipher(inputLetters, noteLetters){
     var mostEmbeddedCipher = new Array();
-    var shiftAmount = 0;
     var bestShiftAmount = 0;
     var bestCipheredLetters = new Array();
     var bestCipheredWordCount = 0;
@@ -91,25 +123,15 @@ function encipher(inputLetters, noteLetters){
     var bestUsedNoteLetters = new Array();
 
     for (n=1; n <= 25; n++){
-	shiftAmount = n;
+	var shiftAmount = n;
 	console.log("Shift Amount: " + shiftAmount);
 
-	var originalMessageLetters = new Array();
-	var cipheredLetters = new Array();
-	for (i=0; i < inputLetters.length; i++){
-	    for (j=0; j < alphabetLetters.length; j++){
-		if (inputLetters[i] === " "){
-		    cipheredLetters.push("-");
-		    originalMessageLetters.push("-");
-		    break;
-		}else if(inputLetters[i] === alphabetLetters[j]){
-		    var caesarShiftAmount = (j + shiftAmount)%26;
-		    cipheredLetters.push(alphabetLetters[caesarShiftAmount]);
-		    originalMessageLetters.push(alphabetLetters[j]);
-		}
-	    }
-	}
+	var cipheredLetters = caesarShift(shiftAmount, inputLetters, "right");
+	var originalMessageLetters = caesarShift(shiftAmount, inputLetters, "none")
+
 	console.log("Ciphered Letters: " + cipheredLetters);
+	console.log("originalMessageLetters: " + originalMessageLetters);
+
 	
 	var steganographicNote = "";
 	var usedCipherLetters = new Array();
@@ -134,7 +156,8 @@ function encipher(inputLetters, noteLetters){
 		}
 	    }
 	}
-	
+	console.log("Used Ciphered Letters: " + usedCipherLetters);
+
 	if (usedCipherLetters.length > mostEmbeddedCipher.length){
 	    mostEmbeddedCipher = usedCipherLetters;
 	    bestCipheredLetters = cipheredLetters;
@@ -238,27 +261,6 @@ function getMessage(){
     }
 }
 
-function caesarShiftLeft(shiftAmount, inputLetters){
-    var alphabet = "abcdefghijklmnopqrstuvwxyz";
-    var alphabetLetters = alphabet.split("");
-    var cipherShiftedLetters = new Array();
-    for (i=0; i < inputLetters.length; i++){
-	for (j=0; j < alphabetLetters.length; j++){
-	    if (inputLetters[i] === " "){
-		cipherShiftedLetters.push("");
-		break;
-	    }else if(inputLetters[i] === alphabetLetters[j]){
-		var caesarShiftAmount = (j - shiftAmount);
-		if(caesarShiftAmount < 0){
-		    caesarShiftAmount = caesarShiftAmount + 26;
-		}
-		cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
-	    }
-	}
-    }
-    return cipherShiftedLetters;
-}
-
 function wordTest(word, cipher, cipherStartingPosition){
     var matchedWordCount = 0;
     var matchedWords = new Array();
@@ -323,7 +325,7 @@ function removeRoots(array){
  
 function decipher(){
     var userInput=document.getElementById("cipherText");
-    var inputLetters = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '').split("");
+    var inputLetters = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/[^-a-z0-9]/ig,'').split("");
     var finalResult = new Array();
     var matchedList = new Array();
     
@@ -332,7 +334,7 @@ function decipher(){
 	var result = ["Shifted " + shiftAmount + " places: "];
 	console.log("SHIFT AMOUNT: " + shiftAmount);
 	
-	var cipheredLetters = caesarShiftLeft(shiftAmount, inputLetters);
+	var cipheredLetters = caesarShift(shiftAmount, inputLetters, "left");
 	console.log("Cipher Letters: " + cipheredLetters.join(""));
 //	console.log("------------------------------DECIPHER STARTS HERE-------------------------------");
 	var y = 0;
