@@ -113,7 +113,7 @@ function caesarShift(shiftAmount, inputLetters, direction){
     return cipherShiftedLetters;
 }
 
-function encipher(inputLetters, noteLetters){
+function encipher(inputLetters, noteLetters, direction){
     var mostEmbeddedCipher = new Array();
     var bestShiftAmount = 0;
     var bestCipheredLetters = new Array();
@@ -126,7 +126,7 @@ function encipher(inputLetters, noteLetters){
 	var shiftAmount = n;
 	console.log("Shift Amount: " + shiftAmount);
 
-	var cipheredLetters = caesarShift(shiftAmount, inputLetters, "right");
+	var cipheredLetters = caesarShift(shiftAmount, inputLetters, direction);
 	var originalMessageLetters = caesarShift(shiftAmount, inputLetters, "none")
 
 	console.log("Ciphered Letters: " + cipheredLetters);
@@ -226,10 +226,17 @@ function getLetter(){
 
 
     }else{
-	console.log(noteLetters);
-	console.log(noteLetters.length);
-	encipher(inputLetters, noteLetters);
-	restoreSelection(letterText, savedSel);
+	if (document.getElementById("btn").checked){
+	    document.getElementById("btn").checked = true;
+	    console.log(noteLetters);
+	    console.log(noteLetters.length);
+	    encipher(inputLetters, noteLetters, "right");
+	    restoreSelection(letterText, savedSel);
+	}else {
+	    encipher(inputLetters, noteLetters, "none");
+	    document.getElementById("btn").checked = false;
+	    restoreSelection(letterText, savedSel);
+	}
     }
 }
 
@@ -241,23 +248,45 @@ function getMessage(){
     console.log("inputLetters: " + inputLetters.length);
     var letterText=document.getElementById("alsoletterText");
     var savedSel = saveSelection(userInput);
+    
     noteLetters = strip(letterText.innerHTML).split("");
     console.log(noteLetters);
     console.log(noteLetters.length);
-
-    if (inputLetters.length === 0){
-	document.getElementById("ciphered-message1").innerHTML = "Enter Your Secret Message";
-	document.getElementById("ciphered-message2").innerHTML = "</br>";
-	document.getElementById("ciphered-message3").innerHTML = "</br>";
-	document.getElementById("alsoletterText").innerHTML = noteLetters.join("");
-	
-    }else if (noteLetters.length <= inputLetters.length){
+    if (noteLetters.length <= inputLetters.length || inputLetters.length === 0){
 	document.getElementById("ciphered-message1").innerHTML = "Espionage takes a little more effort than that";
 	document.getElementById("ciphered-message2").innerHTML = "</br>";
 	document.getElementById("ciphered-message3").innerHTML = "</br>";
+	document.getElementById("alsoletterText").innerHTML = noteLetters.join("");	
+    
     }else{
-	encipher(inputLetters, noteLetters);
-	restoreSelection(userInput, savedSel);
+	if (document.getElementById("btn").checked){
+	    document.getElementById("btn").checked = true;
+	    console.log(noteLetters);
+	    console.log(noteLetters.length);
+	    encipher(inputLetters, noteLetters, "right");
+	    restoreSelection(userInput, savedSel);
+	}else {
+	    encipher(inputLetters, noteLetters, "none");
+	    document.getElementById("btn").checked = false;
+	    restoreSelection(userInput, savedSel);
+	}
+    }
+}
+
+function disableEnciphering(direction){
+    var userInput=document.getElementById("messageText");
+    var userInputNoSpaces = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    var inputLetters = userInputNoSpaces.split("");
+    var letterText=document.getElementById("alsoletterText");    
+    noteLetters = strip(letterText.innerHTML).split("");
+    if (noteLetters.length <= inputLetters.length || inputLetters.length === 0){
+	document.getElementById("ciphered-message1").innerHTML = "Espionage takes a little more effort than that";
+	document.getElementById("ciphered-message2").innerHTML = "</br>";
+	document.getElementById("ciphered-message3").innerHTML = "</br>";
+	document.getElementById("alsoletterText").innerHTML = noteLetters.join("");	
+    
+    }else{
+	encipher(inputLetters, noteLetters, direction);
     }
 }
 

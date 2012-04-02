@@ -53,10 +53,12 @@ if (document.getElementById("btn").checked)
 {
 //Changing the select field state to disabled and changing the value of button to enable
 document.getElementById("btn").value = "Use Caesar Shift";
+disableEnciphering("right");
 document.getElementById("btn").checked = true;
 return;
 } else {
 document.getElementById("btn").value = "ZOMG OH NOES!";
+disableEnciphering("none");
 document.getElementById("btn").checked = false;
 }
 
@@ -108,8 +110,7 @@ document.getElementById("btn").checked = false;
 </div>
 <div class="span3 controls" align="left" style="margin-left:0px; margin-bottom:0px">
   <label class="checkbox lead" style="font-size:15px; line-height:35px; padding-top:0px">
-  <input type="checkbox" id="btn" onclick="toggle()" value="Disable list" style="margin-top:13px; background-color: #202328" >I don't want
-  to Caesar Shift</label></div>
+  <input type="checkbox" id="btn" onclick="toggle()" checked="checked" value="Disable list" style="margin-top:13px; background-color: #202328" >Caesar Shift this message</label></div>
 </div>
 </div>
 </div>
