@@ -90,7 +90,7 @@ function caesarShift(shiftAmount, inputLetters, direction){
 	    }else if(inputLetters[i] === alphabetLetters[j]){
 		switch (direction){
 		case "left":
-		    console.log("Shifting Left");
+		    //console.log("Shifting Left");
 		    var caesarShiftAmount = (j - shiftAmount);
 		    if(caesarShiftAmount < 0){
 			caesarShiftAmount = caesarShiftAmount + 26;
@@ -98,12 +98,12 @@ function caesarShift(shiftAmount, inputLetters, direction){
 		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
 		    break;
 		case "right":
-		    console.log("Shifting Hooray");
+		    //console.log("Shifting Right");
 		    var caesarShiftAmount = (j + shiftAmount)%26;
 		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
 		    break;
 		case "none":	
-		    console.log("Not Shifting");
+		    //console.log("Not Shifting");
 		    cipherShiftedLetters.push(alphabetLetters[j]);
 		    break;
 		}
@@ -113,7 +113,7 @@ function caesarShift(shiftAmount, inputLetters, direction){
     return cipherShiftedLetters;
 }
 
-function encipher(inputLetters, noteLetters, direction){
+function encipher(inputLetters, noteLetters, direction, actualLetterCount){
     var mostEmbeddedCipher = new Array();
     var bestShiftAmount = 0;
     var bestCipheredLetters = new Array();
@@ -130,7 +130,7 @@ function encipher(inputLetters, noteLetters, direction){
 	var originalMessageLetters = caesarShift(shiftAmount, inputLetters, "none")
 
 	console.log("Ciphered Letters: " + cipheredLetters);
-	console.log("originalMessageLetters: " + originalMessageLetters);
+	//console.log("originalMessageLetters: " + originalMessageLetters);
 
 	
 	var steganographicNote = "";
@@ -156,7 +156,8 @@ function encipher(inputLetters, noteLetters, direction){
 		}
 	    }
 	}
-	console.log("Used Ciphered Letters: " + usedCipherLetters);
+	//console.log("Used Ciphered Letters: " + usedCipherLetters);
+	console.log("CipheredLetters.length: " +cipheredLetters.length + " , CipheredWordCount: " + cipheredWordCount);
 
 	if (usedCipherLetters.length > mostEmbeddedCipher.length){
 	    mostEmbeddedCipher = usedCipherLetters;
@@ -166,9 +167,13 @@ function encipher(inputLetters, noteLetters, direction){
 	    bestSteganographicNote = steganographicNote;
 	    bestNoteLetters = noteLetters;
 	    bestUsedNoteLetters = usedNoteLetters;
-	}	
+	}
+	if (direction === "none"){
+	    bestShiftAmount = 0;
+	}
     }
     
+
     var uppertable = new Array();
     var lowertable1 = new Array();
 
@@ -183,7 +188,7 @@ function encipher(inputLetters, noteLetters, direction){
 	}
 	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
 	var cipheredOutput2 = "(Caesar Shifted <font color='2F96B4'>" + bestShiftAmount + "</font> places)";
-	var cipheredOutput3 = "(<font color='2F96B4'>" + mostEmbeddedCipher.length + "</font> of " + (bestCipheredLetters.length - bestCipheredWordCount) + " letters used)";
+	var cipheredOutput3 = "(<font color='2F96B4'>" + mostEmbeddedCipher.length + "</font> of " + (actualLetterCount) + " letters used)";
 
     }
 
@@ -210,6 +215,9 @@ function encipher(inputLetters, noteLetters, direction){
 function getLetter(){
     var userInput=document.getElementById("messageText");
     var userInputNoSpaces = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    var justLettersWithoutSpaces = userInputNoSpaces.replace(/[^-a-z0-9]/ig,'');
+    var actualLetterCount = justLettersWithoutSpaces.length;
+    console.log("actualLetterCount: " + actualLetterCount + typeof actualLetterCount);
     var inputLetters = userInputNoSpaces.split("");
     var letterText=document.getElementById("alsoletterText");
     var savedSel = saveSelection(letterText);
@@ -230,10 +238,10 @@ function getLetter(){
 	    document.getElementById("btn").checked = true;
 	    console.log(noteLetters);
 	    console.log(noteLetters.length);
-	    encipher(inputLetters, noteLetters, "right");
+	    encipher(inputLetters, noteLetters, "right", actualLetterCount);
 	    restoreSelection(letterText, savedSel);
 	}else {
-	    encipher(inputLetters, noteLetters, "none");
+	    encipher(inputLetters, noteLetters, "none", actualLetterCount);
 	    document.getElementById("btn").checked = false;
 	    restoreSelection(letterText, savedSel);
 	}
@@ -244,6 +252,9 @@ function getLetter(){
 function getMessage(){
     var userInput=document.getElementById("messageText");
     var userInputNoSpaces = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    var justLettersWithoutSpaces = userInputNoSpaces.replace(/[^-a-z0-9]/ig,'');
+    var actualLetterCount = justLettersWithoutSpaces.length;
+    console.log("actualLetterCount: " + actualLetterCount + typeof actualLetterCount);
     var inputLetters = userInputNoSpaces.split("");
     console.log("inputLetters: " + inputLetters.length);
     var letterText=document.getElementById("alsoletterText");
@@ -263,10 +274,10 @@ function getMessage(){
 	    document.getElementById("btn").checked = true;
 	    console.log(noteLetters);
 	    console.log(noteLetters.length);
-	    encipher(inputLetters, noteLetters, "right");
+	    encipher(inputLetters, noteLetters, "right", actualLetterCount);
 	    restoreSelection(userInput, savedSel);
 	}else {
-	    encipher(inputLetters, noteLetters, "none");
+	    encipher(inputLetters, noteLetters, "none", actualLetterCount);
 	    document.getElementById("btn").checked = false;
 	    restoreSelection(userInput, savedSel);
 	}
@@ -276,6 +287,9 @@ function getMessage(){
 function disableEnciphering(direction){
     var userInput=document.getElementById("messageText");
     var userInputNoSpaces = userInput.value.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    var justLettersWithoutSpaces = userInputNoSpaces.replace(/[^-a-z0-9]/ig,'');
+    var actualLetterCount = justLettersWithoutSpaces.length;
+    console.log("actualLetterCount: " + actualLetterCount + typeof actualLetterCount);
     var inputLetters = userInputNoSpaces.split("");
     var letterText=document.getElementById("alsoletterText");    
     noteLetters = strip(letterText.innerHTML).split("");
@@ -286,7 +300,7 @@ function disableEnciphering(direction){
 	document.getElementById("alsoletterText").innerHTML = noteLetters.join("");	
     
     }else{
-	encipher(inputLetters, noteLetters, direction);
+	encipher(inputLetters, noteLetters, direction, actualLetterCount);
     }
 }
 
