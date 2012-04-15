@@ -3497,7 +3497,7 @@ a.thumbnail:hover {
   visibility: hidden;
 }
 body {
-  background-color: #272b30;
+  background: url(http://osxdaily.com/wp-content/uploads/2011/10/NSTexturedFullScreenBackgroundColor.png);
 }
 h1,
 h2,
@@ -4008,7 +4008,7 @@ footer.footer {
   border-top: 1px solid #1c1e22;
 }
 .well, .progress {
-  background-color: #202328;
+  background-color: rgba(32, 35, 40, 1);
   -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);

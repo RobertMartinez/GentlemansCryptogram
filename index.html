@@ -6,15 +6,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
 
 <!-- Le styles -->
 <link href="bootstrap.css" rel="stylesheet">
-<style>
-body {
-padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-}
+<style type="text/css" media="screen">
+    * { 
+        margin: 0; 
+    }
 
-</style>
+    html, 
+    body { 
+        height: 100%; 
+    }
+
+    #wrapper {
+        min-height: 100%;
+        height:     auto !important;
+        height:     100%;
+        margin:     0 auto -44px; /* -44px being the size of the footer */
+    }
+
+    #header { 
+        height: 86px; 
+    }
+
+    #footer, 
+    #push {
+        height: 44px;   
+    }
+    </style>
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -68,54 +90,41 @@ document.getElementById("btn").checked = false;
 </head>
 
 <body>
-
-<div class="navbar navbar-fixed-top">
-<div class="navbar-inner">
-<div class="container">
-  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-  </a>
-  <a class="brand" href="./index.html">Robert Martinez</a>
-<div class="nav-collapse">
-  <ul class="nav">
-    <li class="active"><a href="./index.html">Encipher</a></li>
-    <li><a href="./decipherproject.html">Decipher</a></li>
-    <li><a href="./colophon.html">Colophon</a></li>
-  </ul>
-</div><!--/.nav-collapse -->
-</div>
-</div>
-</div>
-
-<div align="center" class="container">
+<div id="wrapper" align="center" class="container" style="background-color: rgba(0, 0, 0, 0.4)">
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span12">
-  <header class="jumbotron subhead" id="overview">
+  <header class="jumbotron subhead" style="padding-top:10px" id="overview">
   <h1>Gentleman's Cryptogram</h1>
   <p class="lead">Take a secret message and embed it in a letter,</br>
   using the timeless Caesar Cipher method</p>
   </header>
-<div class="well">
-<div id="alsoletterText" class="lead" align="left" contenteditable="true" onkeyup="getLetter()">The hawk-headed man who walked beside her looked down at his penis and seemed, for the first time, to become aware of his own nakedness. He said,"I can look at the sun without even blinking!" "That's very clever of you" Easter said reassuringly, "now let's get him down from there".</div>
+<div class="well" style="background-color: rgba(0, 0, 0, 0.4)">
+  <div class="lead" align="left" contenteditable="true">Dear Spencer, </br></div>
+<div id="alsoletterText" class="lead" align="left" contenteditable="true" onkeyup="getLetter()">
+
+  
+I was overjoyed to receive your letter back last summer and also to hear of your project to revive the lost tradition of the inked note. However, you being the person that you are and our friendship being what it is, I declared when I received your card that I must respond in a manner befitting of the correspondence. It was therefore my solemn task to devise a method of communication that would be appropriate given our context. Now, there were some obvious and attractive choices that presented themselves, but it seems that all contemporary use would prove to be either entirely too time consuming on my end, or wholly impractical on yours. Thus, I was forced to shelve the endeavor for many months and move on to other projects. Embarrassing, yes, but once I commit to an idea I remain quite resolute. Thankfully though, in my pursuit to make this year one in which I follow through on committments, I revived this notion when I was considering new challenging projects to execute. It is with this confluence of events that I quietly embarked on a program that would borrow an archaic method of encipherment and make it relevant once again. You are receiving this letter from me now because I have progressed to the point where I am now ready to valiantly share with you the present fruits of my labor. So while I understand some underlying frustration in my egregiously delayed response, I hope the manner and care in which I have written back will make up for my quiescence. Thank you Spencer for being my light of inspiration for this project. I can only hope to be such a source for you in the future.  
+
 </div>
+<div class="lead" align="left" contenteditable="true">
+With levity and merriment, </br>
+Robert
+</div>
+</div>
+
 <div class="row" style="margin-left:0px">
   <div class="span4" style="margin-left:0px; width:355px"><p> </p></div>
 <div class="span5" style="width:410px; margin-left:0px">
-  <input type="text" id="messageText" value="type your secret message here"
+  <input type="text" id="messageText" value="write a secret message to Spencer"
   class="search-query span4 lead" onkeyup="getMessage()"
-  style="background-color: #202328; border-style: none; height:100%;font-size:20px; font-weight:200">
+  style="background-color: rgba(0, 0, 0, 0.4); border-style: none; height:100%;font-size:20px; font-weight:200">
 </div>
 <div class="span3 controls" align="left" style="margin-left:0px; margin-bottom:0px">
   <label class="checkbox lead" style="font-size:15px; line-height:35px; padding-top:0px">
   <input type="checkbox" id="btn" onclick="toggle()" checked="checked" value="Disable list" style="margin-top:13px; background-color: #202328" >Caesar Shift this message</label></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+
 <div align="center" class="container"> 
 <div class="container-fluid">
 <div class="row-fluid">
@@ -127,12 +136,32 @@ document.getElementById("btn").checked = false;
   <p class="lead" style="margin-bottom:0px" id="ciphered-message2"></br></p>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
 
-<!--Body content-->
 </div>
 </div>
 </div>
-</div> <!-- /container -->
+</div>
+<div align="center" class="container">
+<div class="row" style="margin-left:0px">
+<div id="footer" class="footer lead" style="border-top: none; padding-left:10px">
+<div class="span4" style="margin-left:10px" align="left"><p>Copyright © 2012 Robert Martinez</p></div>
+<div class="span4"><p> </p></div>
+<div class="span3" style="margin-left:90px" align="right">
+<p><a href="./decipherproject.html"><font color='757C82'>Decipher</font></a>
+  <a href="./colophon.html"><font color='757C82'>Colophon</font></a>
+</p>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+
+
 
 <!-- Le javascript
 ================================================== -->

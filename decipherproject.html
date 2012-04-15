@@ -1,104 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Robert Martinez</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+<meta charset="utf-8">
+<title>Robert Martinez</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-    <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
 
+<!-- Le styles -->
+<link href="bootstrap.css" rel="stylesheet">
+<style type="text/css" media="screen">
+    * { 
+        margin: 0; 
+    }
+
+    html, 
+    body { 
+        height: 100%; 
+    }
+
+    #wrapper {
+        min-height: 100%;
+        height:     auto !important;
+        height:     100%;
+        margin:     0 auto -44px; /* -44px being the size of the footer */
+    }
+
+    #header { 
+        height: 86px; 
+    }
+
+    #footer, 
+    #push {
+        height: 44px;   
+    }
     </style>
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114"
-    href="images/apple-touch-icon-114x114.png">
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114"
+href="images/apple-touch-icon-114x114.png">
 
+<!-- Google Analytics -->
 <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-30013874-1']);
-  _gaq.push(['_trackPageview']);
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-30013874-1']);
+_gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 
 </script>
 
-  </head>
+<script type="text/javascript">
 
-  <body>
+function toggle()
+{
+//Checking if select field is enabled
+if (document.getElementById("btn").checked)
+{
+//Changing the select field state to disabled and changing the value of button to enable
+document.getElementById("btn").value = "Use Caesar Shift";
+disableEnciphering("right");
+document.getElementById("btn").checked = true;
+return;
+} else {
+document.getElementById("btn").value = "ZOMG OH NOES!";
+disableEnciphering("none");
+document.getElementById("btn").checked = false;
+}
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="./index.html">Robert Martinez</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li><a href="./index.html">Encipher</a></li>
-              <li class="active"><a href="./decipherproject.html">Decipher</a></li>
-              <li><a href="./colophon.html">Colophon</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
- 
-    <div align="center" class="container">
-     <header class="jumbotron subhead">
+}
+</script>
+
+</head>
+
+<body>
+<div id="wrapper" align="center" class="container" style="background-color: rgba(0, 0, 0, 0.4)">
+     <header class="jumbotron subhead" style="padding-top:10px">
       <h1>Solve Your Cipher</h1>
       <p class="lead">how hard can it be?</p>
       </header>
      <input type="text" id="cipherText" value="type your secret message here"
       class="search-query span4" onkeyup="decipher()"
-      style="background-color: #202328; border-style: none; margin-bottom: 10px; height:100%;font-size:20px; font-weight:200">
+      style="background-color:rgba(0, 0, 0, 0.4); border-style: none; margin-bottom: 10px; height:100%;font-size:20px; font-weight:200">
       </input>
-      <div id="deciphered-message"></div>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
+<div id="deciphered-message"></div>
    </div>
-    </div>
-     
-    </div> <!-- /container -->
-	
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>
-    <script src="words_list.js"></script>
-    <script src="caesar_cipher.js"></script>
-  </body>
+   </div>
+   </div>
+ 
+</div>
+<div align="center" class="container">
+<div class="row" style="margin-left:0px">
+<div id="footer" class="footer lead" style="border-top: none; padding-left:10px">
+<div class="span4" style="margin-left:10px" align="left"><p>Copyright © 2012 Robert Martinez</p></div>
+<div class="span4"><p> </p></div>
+<div class="span3" style="margin-left:90px" align="right">
+<p><a href="./index.html"><font color='757C82'>Encipher</font></a>
+  <a href="./colophon.html"><font color='757C82'>Colophon</font></a>
+</p>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+
+
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>
+<script src="rangy-core.js"></script>
+<script src="rangy-cssclassapplier.js"></script>
+<script src="rangy-selectionsaverestore.js"></script>
+<script src="rangy-serializer.js"></script>
+<script src="words_list.js"></script>
+<script src="caesar_cipher.js"></script>
+
+</body>
 </html>
