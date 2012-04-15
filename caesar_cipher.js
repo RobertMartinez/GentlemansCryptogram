@@ -1,3 +1,5 @@
+//saveSelection and restoreSelection are mods from the author of the Rangy library that I've implemented in order to render HTML in both the letter box and the message box, while retaining caret positioning. Seems like that's incredibly hard unless you implement Rangy with these two modified functions. 
+
 function saveSelection(containerEl) {
     var charIndex = 0, start = 0, end = 0, foundStart = false, stop = {};
     var sel = rangy.getSelection(), range;
@@ -70,13 +72,14 @@ function restoreSelection(containerEl, savedSel) {
     }
 }
 
+//This is used to remove all HTML from the Letter Box so I can then put it into an array and manipulate it
 function strip(html)
     {
 	var tmp = document.createElement("DIV");
 	tmp.innerHTML = html;
 	return tmp.textContent||tmp.innerText;
     }
-
+//This is maybe the most important function in this document. It will take an array of letters and shift all them the same specified amount in a specified direction. 
 function caesarShift(shiftAmount, inputLetters, direction){
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var alphabetLetters = alphabet.split("");
@@ -173,7 +176,6 @@ function encipher(inputLetters, noteLetters, direction, actualLetterCount){
 	}
     }
     
-
     var uppertable = new Array();
     var lowertable1 = new Array();
 
@@ -304,6 +306,9 @@ function disableEnciphering(direction){
     }
 }
 
+//Everything from here down deals with deciphering for the Caesar Shift cipher
+
+//This function takes a string (a word) and sees if it fits in another string (a cipher) starting at a given position (the starting position)
 function wordTest(word, cipher, cipherStartingPosition){
     var matchedWordCount = 0;
     var matchedWords = new Array();
@@ -454,6 +459,6 @@ function decipher(){
     for (h=0; h< finalResult.length; h++){
 	console.log(finalResult[h].length);
     }
-    document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + finalResult.join("") + "</p></div>";
+    document.getElementById("deciphered-message").innerHTML = "<div class='well' style='background-color:rgba(0, 0, 0, 0.4)' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + finalResult.join("") + "</p></div>";
 }
    
