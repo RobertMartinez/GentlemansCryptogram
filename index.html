@@ -2,54 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Robert Martinez</title>
+<title>Gentleman's Cryptogtam</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-
 <!-- Le styles -->
-<link href="bootstrap.css" rel="stylesheet">
-<style type="text/css" media="screen">
-    * { 
-        margin: 0; 
-    }
-
-    html, 
-    body { 
-        height: 100%; 
-    }
-
-    #wrapper {
-        min-height: 100%;
-        height:     auto !important;
-        height:     100%;
-        margin:     0 auto -44px; /* -44px being the size of the footer */
-    }
-
-    #header { 
-        height: 86px; 
-    }
-
-    #footer, 
-    #push {
-        height: 44px;   
-    }
-    </style>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
-<!-- Le fav and touch icons -->
-<link rel="shortcut icon" href="images/favicon.ico">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114"
-href="images/apple-touch-icon-114x114.png">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -63,10 +30,6 @@ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async
 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
-
-</script>
-
-<script type="text/javascript">
 
 function toggle()
 {
@@ -90,69 +53,68 @@ document.getElementById("btn").checked = false;
 </head>
 
 <body>
-<div id="wrapper" align="center" class="container" style="background-color: rgba(0, 0, 0, 0.4)">
-<div class="container-fluid">
-<div class="row-fluid">
-<div class="span12">
-  <header class="jumbotron subhead" style="padding-top:10px" id="overview">
-  <h1>Gentleman's Cryptogram</h1>
-  <p class="lead">Take a secret message and embed it in a letter,</br>
-  using the timeless Caesar Cipher method</p>
-  </header>
-<div class="well" style="background-color: rgba(0, 0, 0, 0.4)">
-  <div class="lead" align="left" contenteditable="true">Dear Spencer, </br></div>
-<div id="alsoletterText" class="lead" align="left" contenteditable="true" onkeyup="getLetter()">
+<div id="wrapper" align="center" class="container">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <header id="overview" class="jumbotron subhead">
+        <h1>Gentleman's Cryptogram</h1>
+        <p class="lead">Take a secret message and embed it in a letter,</p> 
+        <p class="lead">using the timeless Caesar Cipher method</p>
+        </header>
+        <div class="well">
+          <div class="lead" align="left" contenteditable="true">Dear Spencer, </div>
+          <div id="alsoletterText" class="lead" align="left" contenteditable="true" onkeyup="getLetter()">
 
   
 I was overjoyed to receive your letter back last summer and also to hear of your project to revive the lost tradition of the inked note. However, you being the person that you are and our friendship being what it is, I declared when I received your card that I must respond in a manner befitting of the correspondence. It was therefore my solemn task to devise a method of communication that would be appropriate given our context. Now, there were some obvious and attractive choices that presented themselves, but it seems that all contemporary use would prove to be either entirely too time consuming on my end, or wholly impractical on yours. Thankfully though, I revived this notion when I was considering new challenging projects. It is with this that I quietly embarked on a program that would borrow an archaic method of encipherment and make it relevant once again. You are receiving this letter from me now because I have progressed to the point where I am now ready to valiantly share with you the present fruits of my labor. So while I understand some underlying frustration in my egregiously delayed response, I hope the manner and care in which I have written back will make up for my quiescence. Thank you Spencer for being my light of inspiration for this project. I can only hope to be such a source for you in the future.  
 
-</div>
-<div class="lead" align="left" contenteditable="true">
-With levity and merriment, </br>
-Robert
-</div>
+        </div>
+        <div class="lead" align="left" contenteditable="true">
+          With levity and merriment,
+          Robert
+        </div>
+      </div>
+      <div id="d1" class="row">
+        <div id="d2" class="span4"><p> </p></div>
+        <div id="d3" class="span5">
+          <input id="messageText" type="text" value="write a secret message to Spencer"
+  class="search-query span4 lead" onkeyup="getMessage()">
+        </div>
+        <div id="d4" class="span3 controls" align="left">
+          <label class="checkbox lead">
+            <input id="btn" type="checkbox" onclick="toggle()" checked="checked" value="Disable list">Caesar Shift this message</label>
+        </div>
+      </div>
+
+      <div align="center" class="container"> 
+        <div class="container-fluid">
+          <div class="row-fluid">
+            <div class="span12">
+              <div id="d5" class"row">
+                <div class"span4" align="center">
+                  <p id="ciphered-message1" class="lead"></p></br>
+                  <p id="ciphered-message3" class="lead"></p></br>
+                  <p id="ciphered-message2" class="lead"></p></br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="row" style="margin-left:0px">
-  <div class="span4" style="margin-left:0px; width:355px"><p> </p></div>
-<div class="span5" style="width:35%; margin-left:0px">
-  <input type="text" id="messageText" value="write a secret message to Spencer"
-  class="search-query span4 lead" onkeyup="getMessage()"
-  style="background-color: rgba(0, 0, 0, 0.4); border-style: none; height:100%;font-size:20px; font-weight:200; width: 100%">
-</div>
-<div class="span3 controls" align="left" style="margin-left:5px; margin-bottom:0px">
-  <label class="checkbox lead" style="font-size:15px; line-height:35px; padding-top:0px">
-  <input type="checkbox" id="btn" onclick="toggle()" checked="checked" value="Disable list" style="margin-top:13px; background-color: #202328" >Caesar Shift this message</label></div>
-</div>
-
-<div align="center" class="container"> 
-<div class="container-fluid">
-<div class="row-fluid">
-<div class="span12">
-<div class"row" style="margin-top: 5px">
-<div class"span4" align="center">
-  <p class="lead" style="margin-bottom:0px" id="ciphered-message1"></br></p>
-  <p class="lead" style="margin-bottom:0px" id="ciphered-message3"></br></p>
-  <p class="lead" style="margin-bottom:0px" id="ciphered-message2"></br></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
 </div>
 <div align="center" class="container">
-<div class="row" style="margin-left:0px">
-<div id="footer" class="footer lead" style="border-top: none; padding-left:10px">
-<div class="span4" style="margin-left:10px" align="left"><p>Copyright © 2012 Robert Martinez</p></div>
+<div id="d6" class="row">
+<div id="footer" class="footer lead">
+<div id="d7" class="span4" align="left"><p>Copyright © 2014 Robert Martinez</p></div>
 <div class="span4"><p> </p></div>
-<div class="span3" style="margin-left:90px" align="right">
-<p><a href="./decipherproject.html"><font color='757C82'>Decipher</font></a>
-  <a href="./colophon.html"><font color='757C82'>Colophon</font></a>
+<div id="d8" class="span3" align="right">
+<p><a class="other-pages" href="./decipherproject.html">Decipher</a>
+  <a class="other-pages" href="./colophon.html">Colophon</a>
 </p>
   </div>
   </div>

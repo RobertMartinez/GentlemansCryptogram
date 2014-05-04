@@ -147,7 +147,7 @@ function encipher(inputLetters, noteLetters, direction, actualLetterCount){
 		    cipheredWordCount++;
 		    break;
 		}else if(noteLetters[k].toLowerCase() === cipheredLetters[i]){
-		    steganographicNote += "<strong><font color='2F96B4'>" + noteLetters[k] + "</font></strong>";
+		    steganographicNote += "<strong><font color='ffc900'>" + noteLetters[k] + "</font></strong>";
 		    usedCipherLetters.push(cipheredLetters[i]);
 		    usedNoteLetters.push(i);
 		    k++;
@@ -182,15 +182,15 @@ function encipher(inputLetters, noteLetters, direction, actualLetterCount){
     if (mostEmbeddedCipher.length + bestCipheredWordCount < bestCipheredLetters.length){
 	for (i=0; i< mostEmbeddedCipher.length + bestCipheredWordCount; i++){
 	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
-	    lowertable1.push("<td><strong><font color='2F96B4'>" + bestCipheredLetters[i] + "</font></strong></td>");
+	    lowertable1.push("<td><strong><font color='ffc900'>" + bestCipheredLetters[i] + "</font></strong></td>");
 	}
 	for (i=mostEmbeddedCipher.length + bestCipheredWordCount; i< originalMessageLetters.length; i++){
 	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
 	    lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
 	}
 	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
-	var cipheredOutput2 = "(Caesar Shifted <font color='2F96B4'>" + bestShiftAmount + "</font> places)";
-	var cipheredOutput3 = "(<font color='2F96B4'>" + mostEmbeddedCipher.length + "</font> of " + (actualLetterCount) + " letters used)";
+	var cipheredOutput2 = "(Caesar Shifted <font color='ffc900'>" + bestShiftAmount + "</font> places)";
+	var cipheredOutput3 = "(<font color='ffc900'>" + mostEmbeddedCipher.length + "</font> of " + (actualLetterCount) + " letters used)";
 
     }
 
@@ -203,8 +203,8 @@ function encipher(inputLetters, noteLetters, direction, actualLetterCount){
 	    lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
 	}
 	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
-	var cipheredOutput2 = "(Caesar Shifted <font color='2F96B4'>" + bestShiftAmount + "</font> places)";
-	var cipheredOutput3 = "<strong><font color='2F96B4'>" + "The Message Fits!" + "</strong></font>";
+	var cipheredOutput2 = "(Caesar Shifted <font color='ffc900'>" + bestShiftAmount + "</font> places)";
+	var cipheredOutput3 = "<strong><font color='ffc900'>" + "The Message Fits!" + "</strong></font>";
     }
     	
     document.getElementById("ciphered-message1").innerHTML = cipheredOutput1;
@@ -429,7 +429,7 @@ function decipher(){
 		    if (matchedList[p][0] >= r ){
 			//console.log("r: " + r + " , and matchedList[p][0] is: " + matchedList[p][0]);
 			if (r === matchedList[p][0]){
-			    result.push("<font color='2F96B4'> " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join("") + " </font>");
+			    result.push("<font color='ffc900'> " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join("") + " </font>");
 			    console.log("The word is: " + cipheredLetters.slice(matchedList[p][0], matchedList[p][matchedList[p].length - 1] + 1 ).join(""));
 		 	    r = matchedList[p][matchedList[p].length - 1] + 1;
 			    p++;
