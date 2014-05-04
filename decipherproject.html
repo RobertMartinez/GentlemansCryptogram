@@ -10,34 +10,9 @@
 
 
 <!-- Le styles -->
-<link href="bootstrap.css" rel="stylesheet">
-<style type="text/css" media="screen">
-    * { 
-        margin: 0; 
-    }
-
-    html, 
-    body { 
-        height: 100%; 
-    }
-
-    #wrapper {
-        min-height: 100%;
-        height:     auto !important;
-        height:     100%;
-        margin:     0 auto -44px; /* -44px being the size of the footer */
-    }
-
-    #header { 
-        height: 86px; 
-    }
-
-    #footer, 
-    #push {
-        height: 44px;   
-    }
-    </style>
-<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<!-- <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -90,14 +65,13 @@ document.getElementById("btn").checked = false;
 </head>
 
 <body>
-<div id="wrapper" align="center" class="container" style="background-color: rgba(0, 0, 0, 0.4)">
+<div id="wrapper" align="center" class="container">
      <header class="jumbotron subhead" style="padding-top:10px">
       <h1>Solve Your Cipher</h1>
       <p class="lead">how hard can it be?</p>
       </header>
      <input type="text" id="cipherText" value="type your secret message here"
-      class="search-query span4" onkeyup="decipher()"
-      style="background-color:rgba(0, 0, 0, 0.4); border-style: none; margin-bottom: 10px; height:100%;font-size:20px; font-weight:200">
+      class="search-query span4" onkeyup="decipher()">
       </input>
 <div class="container-fluid">
 <div class="row-fluid">
@@ -111,13 +85,11 @@ document.getElementById("btn").checked = false;
 <div align="center" class="container">
 <div class="row" style="margin-left:0px">
 <div id="footer" class="footer lead" style="border-top: none; padding-left:10px">
-<div class="span4" style="margin-left:10px" align="left"><p>Copyright © 2012 Robert Martinez</p></div>
+<div id="d7" class="span4" align="left"><p>Copyright © 2014 Robert Martinez</p></div>
 <div class="span4"><p> </p></div>
-<div class="span3" style="margin-left:90px" align="right">
-<p><a href="./index.html"><font color='757C82'>Encipher</font></a>
-  <a href="./colophon.html"><font color='757C82'>Colophon</font></a>
-</p>
-  </div>
+<div id="d8" class="span3" align="right">
+<p><a class="other-pages" href="./index.html">Encipher</a>
+  <a class="other-pages" href="./colophon.html">Colophon</a></p>  </div>
   </div>
   </div>
   </div>
