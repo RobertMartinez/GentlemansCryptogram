@@ -36,22 +36,18 @@ label {
 }
 
 .well {
-    /*background-color: rgba(0, 0, 0, 0.4)*/
     background-color:#0e0f2b;
 }
 
 [contenteditable="true"] {
-    /*background-color: grey;*/
 }
 
 [contenteditable="true"]:focus {
-    /*background-color: white;*/
     outline-color: white;
     outline:none;
 }
 
-#messageText {
-    /*background-color: rgba(0, 0, 0, 0.4); */
+#messageText, #cipherText {
     background-color:#0e0f2b;
     outline-color: white;
     /*border-style: none; */
@@ -63,7 +59,6 @@ label {
 
 #btn {
     margin-top:13px; 
-    /*background-color: #202328;*/
 }
 
 #ciphered-message1 {
@@ -125,3 +120,36 @@ label {
 #push {
     height: 44px;   
 }
+
+.boxy {
+    border-style:solid;
+    border-color:white;
+    border-width:1px;
+}
+
+/* deciperproject.html
+
+{ 
+    margin: 0; 
+}
+
+html, 
+body { 
+    height: 100%; 
+}
+
+#wrapper {
+    min-height: 100%;
+    height:     auto !important;
+    height:     100%;
+    margin:     0 auto -44px; 
+}
+
+#header { 
+    height: 86px; 
+}
+
+#footer, 
+#push {
+    height: 44px;   
+}*/

@@ -10,35 +10,8 @@
 
 
 <!-- Le styles -->
-<link href="bootstrap.css" rel="stylesheet">
-<style type="text/css" media="screen">
-    * { 
-        margin: 0; 
-    }
-
-    html, 
-    body { 
-        height: 100%; 
-    }
-
-    #wrapper {
-        min-height: 100%;
-        height:     auto !important;
-        height:     100%;
-        margin:     0 auto -44px; /* -44px being the size of the footer */
-    }
-
-    #header { 
-        height: 86px; 
-    }
-
-    #footer, 
-    #push {
-        height: 44px;   
-    }
-    </style>
-<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
-
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -90,49 +63,32 @@ document.getElementById("btn").checked = false;
 </head>
 
 <body>
-<div div id="wrapper" align="center" class="container" style="background-color: rgba(0, 0, 0, 0.4)">
+<div div id="wrapper" align="center" class="container">
     
       <header class="jumbotron subhead" id="overview" style="padding-top:10px">
       <h1>Colophon</h1>
       <p class="lead">Resources Used to Build this Website</p>
       </header>
     <div class="row">
-    <div class="span3">
+    <div class="col-md-4 boxy">
       <h2> Bootstrap</h2>
       <p class="lead">Prototyping this idea was made primarily with 
-      <a href="http://twitter.github.com/bootstrap/" target="_blank"><font color='2F96B4'>Twitter's Bootstrap</font></a>
-      and Chrome's Inspect Element tool.</p>
-    </div>
-    <div class="span3">
-      <h2>Bootswatch</h2>
-      <p class="lead">This site has made use of
-      <a href="http://bootswatch.com/slate/" target="_blank"><font color='2F96B4'>Bootswatch's
-      Slate Theme</font></a>. By far the fastest way to give your prototype a fresh theme.</p>
-    </div>
-    <div class="span3">
+      <a href="http://getbootstrap.com/" target="_blank"><font color='2F96B4'>Twitter's Bootstrap</font></a>
+      and Chrome's Inspect Element tool.</p></br>
+    </div>  
+    <div class="col-md-4 boxy">
       <h2>Code Academy</h2>
-      <p class="lead">All the logic would not have been nearly
-      as easy had I not first joined
+      <p class="lead">Javascript learning helped along greatly by
       <a href="http://www.codecademy.com" target="_blank"><font color='2F96B4'>Code Academy</font></a>
-      to efficiently learn Javascript.</p>
+      with their solid lessons.</p></br>
       </div>
-      
-    <!--<div class="span3">
-      <h2>GitHub</h2>
-      <p class="lead">This site is hosted on GitHub Pages (for
-      free!). You can take a look at the source on
-      <a
-      href="https://github.com/RobertMartinez/GentlemansCryptogram"
-      target="_blank"><font color='2F96B4'>github</font></a> and feel
-      free to fork it.</p>
-    </div> -->
-    <div class="span3">
+    <div class="col-md-4 boxy">
       <h2>Rangy</h2>
-      <p class="lead">This library totally saved me when it came
+      <p class="lead">This library helped me when it came
       to maintaining cursor position on the encipher page. Check out
       <a
       href="https://code.google.com/p/rangy/"
-      target="_blank"><font color='2F96B4'>rangy</font></a> here.</p>
+      target="_blank"><font color='2F96B4'>rangy</font></a> here.</p></br>
     </div>
     </div>
     <footer class="footer lead" style="border-top: none">
@@ -151,14 +107,15 @@ document.getElementById("btn").checked = false;
     </div>
     
     </div> <!-- /container -->
-    <div align="center" class="container">
-<div class="row" style="margin-left:0px">
-<div id="footer" class="footer lead" style="border-top: none; padding-left:10px">
-<div class="span4" style="margin-left:10px" align="left"><p>Copyright © 2012 Robert Martinez</p></div>
+   <div align="center" class="container">
+<div id="d6" class="row">
+<div id="footer" class="footer lead">
+<div id="d7" class="span4" align="left"><p>Copyright © 2014 Robert Martinez</p></div>
 <div class="span4"><p> </p></div>
-<div class="span3" style="margin-left:90px" align="right">
-<p><a href="./index.html"><font color='757C82'>Encipher</font></a>
-  <a href="./decipherproject.html"><font color='757C82'>Decipher</font></a></p>
+<div id="d8" class="span3" align="right">
+<p><a class="other-pages" href="./index.html">Encipher</a>
+<a class="other-pages" href="./decipherproject.html">Decipher</a>
+  </p>
   </div>
   </div>
   </div>

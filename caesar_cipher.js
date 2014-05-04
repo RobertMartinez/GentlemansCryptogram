@@ -459,6 +459,6 @@ function decipher(){
     for (h=0; h< finalResult.length; h++){
 	console.log(finalResult[h].length);
     }
-    document.getElementById("deciphered-message").innerHTML = "<div class='well' style='background-color:rgba(0, 0, 0, 0.4)' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + finalResult.join("") + "</p></div>";
+    document.getElementById("deciphered-message").innerHTML = "<div class='well' align='center'><p class='lead' style='margin-left:12px; margin-top:8px' align='left'>" + finalResult.join("") + "</p></div>";
 }
    
