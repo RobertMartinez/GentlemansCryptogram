@@ -5,6 +5,8 @@ margin: 0;
 html, 
 body { 
     height: 100%; 
+    background-color:#0e0f2b;
+    color:#fff;
 }
 
 label {
@@ -18,7 +20,7 @@ label {
     height:     auto !important;
     height:     100%;
     margin:     0 auto -44px; /* -44px being the size of the footer */
-    background-color: rgba(0, 0, 0, 0.4);
+    /*background-color: rgba(0, 0, 0, 0.4);*/
 }
 
 #header { 
@@ -29,13 +31,30 @@ label {
     padding-top:10px
 }
 
+.jumbotron {
+    background-color:#0e0f2b;
+}
+
 .well {
-    background-color: rgba(0, 0, 0, 0.4)
+    /*background-color: rgba(0, 0, 0, 0.4)*/
+    background-color:#0e0f2b;
+}
+
+[contenteditable="true"] {
+    /*background-color: grey;*/
+}
+
+[contenteditable="true"]:focus {
+    /*background-color: white;*/
+    outline-color: white;
+    outline:none;
 }
 
 #messageText {
-    background-color: rgba(0, 0, 0, 0.4); 
-    border-style: none; 
+    /*background-color: rgba(0, 0, 0, 0.4); */
+    background-color:#0e0f2b;
+    outline-color: white;
+    /*border-style: none; */
     height:100%;
     font-size:20px; 
     font-weight:200; 
@@ -44,7 +63,7 @@ label {
 
 #btn {
     margin-top:13px; 
-    background-color: #202328;
+    /*background-color: #202328;*/
 }
 
 #ciphered-message1 {
@@ -100,7 +119,7 @@ label {
 }
 
 .other-pages {
-    color:#757C82;
+    color:#ffffff;
 }
 
 #push {
