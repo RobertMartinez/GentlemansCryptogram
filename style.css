@@ -1,0 +1,108 @@
+{ 
+margin: 0; 
+}
+
+html, 
+body { 
+    height: 100%; 
+}
+
+label {
+    font-size:15px;
+    line-height:35px; 
+    padding-top:0px;
+}
+
+#wrapper {
+    min-height: 100%;
+    height:     auto !important;
+    height:     100%;
+    margin:     0 auto -44px; /* -44px being the size of the footer */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#header { 
+    height: 86px; 
+}
+
+#overview {
+    padding-top:10px
+}
+
+.well {
+    background-color: rgba(0, 0, 0, 0.4)
+}
+
+#messageText {
+    background-color: rgba(0, 0, 0, 0.4); 
+    border-style: none; 
+    height:100%;
+    font-size:20px; 
+    font-weight:200; 
+    width: 100%;
+}
+
+#btn {
+    margin-top:13px; 
+    background-color: #202328;
+}
+
+#ciphered-message1 {
+    margin-bottom:0px;
+}
+
+#ciphered-message2 {
+    margin-bottom:0px;
+}
+
+#ciphered-message3 {
+    margin-bottom:0px;
+}
+
+#d1 {
+    margin-left:0px;
+}
+
+#d2 {
+    margin-left:0px; 
+    width:355px;
+}
+
+#d3 {
+    width:35%; 
+    margin-left:0px;
+}
+
+#d4 {
+    margin-left:5px; 
+    margin-bottom:0px;
+}
+
+#d5 {
+    margin-top: 5px;
+}
+
+#d6 {
+    margin-left:0px;
+}
+
+#d7 {
+    margin-left:10px;
+}
+
+#d8 {
+    margin-left:90px;
+}
+
+#footer {
+    border-top: none; 
+    padding-left:10px;
+}
+
+.other-pages {
+    color:#757C82;
+}
+
+#push {
+    height: 44px;   
+}
