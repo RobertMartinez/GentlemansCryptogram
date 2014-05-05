@@ -4,19 +4,11 @@
 <meta charset="utf-8">
 <title>Gentleman's Cryptogtam</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
 <!-- Le styles -->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="style.css" rel="stylesheet">
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
-
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -31,25 +23,27 @@ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www')
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
 
-function toggle()
-{
+//<!-- end Google Analytics -->
+
+function toggle(){
 //Checking if select field is enabled
-if (document.getElementById("btn").checked)
-{
-//Changing the select field state to disabled and changing the value of button to enable
-document.getElementById("btn").value = "Use Caesar Shift";
-disableEnciphering("right");
-document.getElementById("btn").checked = true;
-return;
-} else {
-document.getElementById("btn").value = "ZOMG OH NOES!";
-disableEnciphering("none");
-document.getElementById("btn").checked = false;
+if (document.getElementById("btn").checked){
+  //Changing the select field state to disabled and changing the value of button to enable
+  // document.getElementById("btn").value = "Using Caesar Shift";
+  disableEnciphering("right");
+  document.getElementById("btn").checked = true;
+  $(".c").text("Using Caesar Shift")
+  return;
+  } 
+else {
+  // document.getElementById("btn").value = "Not using Caesar Shift";
+  disableEnciphering("none");
+  document.getElementById("btn").checked = false;
+  $(".c").text("Not using Caesar Shift")
+  }
 }
 
-}
 </script>
-
 </head>
 
 <body>
@@ -57,7 +51,7 @@ document.getElementById("btn").checked = false;
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span12">
-        <header id="overview" class="jumbotron subhead">
+        <header class="jumbotron subhead">
         <h1>Gentleman's Cryptogram</h1>
         <p class="lead">Take a secret message and embed it in a letter,</p> 
         <p class="lead">using the timeless Caesar Cipher method</p>
@@ -66,24 +60,28 @@ document.getElementById("btn").checked = false;
           <div class="lead" align="left" contenteditable="true">Dear Spencer, </div>
           <div id="alsoletterText" class="lead" align="left" contenteditable="true" onkeyup="getLetter()">
 
-  
 I was overjoyed to receive your letter back last summer and also to hear of your project to revive the lost tradition of the inked note. However, you being the person that you are and our friendship being what it is, I declared when I received your card that I must respond in a manner befitting of the correspondence. It was therefore my solemn task to devise a method of communication that would be appropriate given our context. Now, there were some obvious and attractive choices that presented themselves, but it seems that all contemporary use would prove to be either entirely too time consuming on my end, or wholly impractical on yours. Thankfully though, I revived this notion when I was considering new challenging projects. It is with this that I quietly embarked on a program that would borrow an archaic method of encipherment and make it relevant once again. You are receiving this letter from me now because I have progressed to the point where I am now ready to valiantly share with you the present fruits of my labor. So while I understand some underlying frustration in my egregiously delayed response, I hope the manner and care in which I have written back will make up for my quiescence. Thank you Spencer for being my light of inspiration for this project. I can only hope to be such a source for you in the future.  
 
         </div>
-        <div class="lead" align="left" contenteditable="true">
-          With levity and merriment,
+        <div class="lead output" align="left" contenteditable="true">
+          With levity and merriment, </br>
           Robert
         </div>
       </div>
-      <div id="d1" class="row">
-        <div id="d2" class="span4"><p> </p></div>
-        <div id="d3" class="span5">
+      <div class="row input">
+        <div class="col-md-3"><p> </p></div>
+
+        <div class="col-md-6  input-group-lg">
           <input id="messageText" type="text" value="write a secret message to Spencer"
-  class="search-query span4 lead" onkeyup="getMessage()">
+  class="col-md-4 form-control" onkeyup="getMessage()">
         </div>
-        <div id="d4" class="span3 controls" align="left">
-          <label class="checkbox lead">
-            <input id="btn" type="checkbox" onclick="toggle()" checked="checked" value="Disable list">Caesar Shift this message</label>
+
+        <div class="col-md-3" align="right">
+          <label class="btn btn-outline-inverse btn-lg">
+            <input id="btn" type="checkbox" onclick="toggle()" checked="checked" value="Disable list">
+            <!-- <span id="icon"class="glyphicon glyphicon-ok"></span>  -->
+            <span class="c">Using Caesar Shift</span>
+          </label>
         </div>
       </div>
 
@@ -91,11 +89,11 @@ I was overjoyed to receive your letter back last summer and also to hear of you
         <div class="container-fluid">
           <div class="row-fluid">
             <div class="span12">
-              <div id="d5" class"row">
+              <div class"row">
                 <div class"span4" align="center">
-                  <p id="ciphered-message1" class="lead"></p></br>
-                  <p id="ciphered-message3" class="lead"></p></br>
-                  <p id="ciphered-message2" class="lead"></p></br>
+                  <p id="ciphered-message1" class="lead output"></p></br>
+                  <p id="ciphered-message3" class="lead output"></p></br>
+                  <p id="ciphered-message2" class="lead output"></p></br>
                 </div>
               </div>
             </div>
@@ -108,39 +106,24 @@ I was overjoyed to receive your letter back last summer and also to hear of you
 
 </div>
 <div align="center" class="container">
-<div id="d6" class="row">
-<div id="footer" class="footer lead">
-<div id="d7" class="span4" align="left"><p>Copyright © 2014 Robert Martinez</p></div>
-<div class="span4"><p> </p></div>
-<div id="d8" class="span3" align="right">
-<p><a class="other-pages" href="./decipherproject.html">Decipher</a>
-  <a class="other-pages" href="./colophon.html">Colophon</a>
-</p>
+  <div class="row">
+    <div class="footer lead">
+      <div class="col-md-4" align="left">
+        <p>Copyright © 2014 Robert Martinez</p>
+      </div>
+      <div class="col-md-8" align="right">
+        <p><a class="other-pages" href="./decipherproject.html">Decipher</a>
+        <a class="other-pages" href="./colophon.html">Colophon</a>
+        </p>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>
-  </div>
-
-
-
-
+</div>
 
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>
-<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="rangy-core.js"></script>
 <script src="rangy-cssclassapplier.js"></script>
 <script src="rangy-selectionsaverestore.js"></script>
