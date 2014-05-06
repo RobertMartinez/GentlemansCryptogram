@@ -384,7 +384,7 @@ function decipher(){
 	
 	var cipheredLetters = caesarShift(shiftAmount, inputLetters, "left");
 	console.log("Cipher Letters: " + cipheredLetters.join(""));
-//	console.log("------------------------------DECIPHER STARTS HERE-------------------------------");
+//	console.log("------------------------------DECIPHER STARTS HERE--------------------------------");
 	var y = 0;
 	var m = 0;
 	while(y <= cipheredLetters.length){
