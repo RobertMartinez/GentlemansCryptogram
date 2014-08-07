@@ -1,5 +1,12 @@
-//saveSelection and restoreSelection are mods from the author of the Rangy library that I've implemented in order to render HTML in both the letter box and the message box, while retaining caret positioning. Seems like that's incredibly hard unless you implement Rangy with these two modified functions. 
+TODOS
+[] split this file up into different modules
+[] refactor like mad
+[] reduce/eliminate all hardcoded variables
+[] understand how saveSelection and restoreSelection work
 
+
+//saveSelection and restoreSelection are mods from the author of the Rangy library that I've implemented in order to render HTML in both the letter box and the message box, while retaining caret positioning. Seems like that's incredibly hard unless you implement Rangy with these two modified functions. 
+//I don't understand how this function actually works
 function saveSelection(containerEl) {
     var charIndex = 0, start = 0, end = 0, foundStart = false, stop = {};
     var sel = rangy.getSelection(), range;
@@ -37,7 +44,7 @@ function saveSelection(containerEl) {
         end: end
     };
 }
-
+//I don't understand how this function actually works
 function restoreSelection(containerEl, savedSel) {
     var charIndex = 0, range = rangy.createRange(), foundStart = false, stop = {};
     range.collapseToPoint(containerEl, 0);
@@ -73,145 +80,148 @@ function restoreSelection(containerEl, savedSel) {
 }
 
 //This is used to remove all HTML from the Letter Box so I can then put it into an array and manipulate it
-function strip(html)
-    {
+//I don't understand how this function actually works
+function strip(html){
 	var tmp = document.createElement("DIV");
 	tmp.innerHTML = html;
 	return tmp.textContent||tmp.innerText;
     }
-//This is maybe the most important function in this document. It will take an array of letters and shift all them the same specified amount in a specified direction. 
+
+//This is maybe the most important function in this document. 
+//It will take an array of letters and shift all them the same specified amount in a specified direction. 
 function caesarShift(shiftAmount, inputLetters, direction){
-    var alphabet = "abcdefghijklmnopqrstuvwxyz";
-    var alphabetLetters = alphabet.split("");
-    var cipherShiftedLetters = new Array();
-    
-    for (i=0; i < inputLetters.length; i++){
-	for (j=0; j < alphabetLetters.length; j++){
-	    if (inputLetters[i] === " "){
-		cipherShiftedLetters.push("-");
-		break;
+  var alphabet = "abcdefghijklmnopqrstuvwxyz";
+  var alphabetLetters = alphabet.split("");
+  var cipherShiftedLetters = new Array();
+  
+  for (i=0; i < inputLetters.length; i++){
+    for (j=0; j < alphabetLetters.length; j++){
+      if (inputLetters[i] === " "){
+		    cipherShiftedLetters.push("-");
+		    break;
 	    }else if(inputLetters[i] === alphabetLetters[j]){
-		switch (direction){
-		case "left":
-		    //console.log("Shifting Left");
-		    var caesarShiftAmount = (j - shiftAmount);
-		    if(caesarShiftAmount < 0){
-			caesarShiftAmount = caesarShiftAmount + 26;
-		    }
-		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
-		    break;
-		case "right":
-		    //console.log("Shifting Right");
-		    var caesarShiftAmount = (j + shiftAmount)%26;
-		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
-		    break;
-		case "none":	
-		    //console.log("Not Shifting");
-		    cipherShiftedLetters.push(alphabetLetters[j]);
-		    break;
-		}
+		    switch (direction){
+      		case "left":
+      		    //console.log("Shifting Left");
+      		    var caesarShiftAmount = (j - shiftAmount);
+      		    if(caesarShiftAmount < 0){
+      			caesarShiftAmount = caesarShiftAmount + 26;
+      		    }
+      		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
+      		    break;
+      		case "right":
+      		    //console.log("Shifting Right");
+      		    var caesarShiftAmount = (j + shiftAmount)%26;
+      		    cipherShiftedLetters.push(alphabetLetters[caesarShiftAmount]);
+      		    break;
+      		case "none":	
+      		    //console.log("Not Shifting");
+      		    cipherShiftedLetters.push(alphabetLetters[j]);
+      		    break;
+    		}
 	    }
-	}
     }
-    return cipherShiftedLetters;
+  }
+  return cipherShiftedLetters;
 }
 
+//how on earth is this is a 96 line function?! 
 function encipher(inputLetters, noteLetters, direction, actualLetterCount){
-    var mostEmbeddedCipher = new Array();
-    var bestShiftAmount = 0;
-    var bestCipheredLetters = new Array();
-    var bestCipheredWordCount = 0;
-    var bestSteganographicNote = "";
-    var bestNoteLetters = new Array();
-    var bestUsedNoteLetters = new Array();
+  var mostEmbeddedCipher = new Array();
+  var bestShiftAmount = 0;
+  var bestCipheredLetters = new Array();
+  var bestCipheredWordCount = 0;
+  var bestSteganographicNote = "";
+  var bestNoteLetters = new Array();
+  var bestUsedNoteLetters = new Array();
 
-    for (n=1; n <= 25; n++){
-	var shiftAmount = n;
-	console.log("Shift Amount: " + shiftAmount);
+  for (n=1; n <= 25; n++){
+  	var shiftAmount = n;
+  	console.log("Shift Amount: " + shiftAmount);
 
-	var cipheredLetters = caesarShift(shiftAmount, inputLetters, direction);
-	var originalMessageLetters = caesarShift(shiftAmount, inputLetters, "none")
+  	var cipheredLetters = caesarShift(shiftAmount, inputLetters, direction);
+  	var originalMessageLetters = caesarShift(shiftAmount, inputLetters, "none")
 
-	console.log("Ciphered Letters: " + cipheredLetters);
-	//console.log("originalMessageLetters: " + originalMessageLetters);
+  	console.log("Ciphered Letters: " + cipheredLetters);
+  	//console.log("originalMessageLetters: " + originalMessageLetters);
 
-	
-	var steganographicNote = "";
-	var usedCipherLetters = new Array();
-	var usedNoteLetters = new Array();
-	var cipheredWordCount = 0
-	var k=0;
-	for (i=0; i < cipheredLetters.length; i++){
-	    while (k < noteLetters.length){
-		if (cipheredLetters[i] === "-"){
-		    cipheredWordCount++;
-		    break;
-		}else if(noteLetters[k].toLowerCase() === cipheredLetters[i]){
-		    steganographicNote += "<strong><font color='ffc900'>" + noteLetters[k] + "</font></strong>";
-		    usedCipherLetters.push(cipheredLetters[i]);
-		    usedNoteLetters.push(i);
-		    k++;
-		    break;
-		}else{
-		    steganographicNote += noteLetters[k];
-		    k++;
-		    usedNoteLetters.push(i);
-		}
-	    }
-	}
-	//console.log("Used Ciphered Letters: " + usedCipherLetters);
-	console.log("CipheredLetters.length: " +cipheredLetters.length + " , CipheredWordCount: " + cipheredWordCount);
+  	
+  	var steganographicNote = "";
+  	var usedCipherLetters = new Array();
+  	var usedNoteLetters = new Array();
+  	var cipheredWordCount = 0
+  	var k=0;
+  	for (i=0; i < cipheredLetters.length; i++){
+      while (k < noteLetters.length){
+  		  if (cipheredLetters[i] === "-"){
+  		    cipheredWordCount++;
+  		    break;
+  		  }else if(noteLetters[k].toLowerCase() === cipheredLetters[i]){
+  		    steganographicNote += "<strong><font color='ffc900'>" + noteLetters[k] + "</font></strong>";
+  		    usedCipherLetters.push(cipheredLetters[i]);
+  		    usedNoteLetters.push(i);
+  		    k++;
+  		    break;
+  		  }else{
+  		    steganographicNote += noteLetters[k];
+  		    k++;
+  		    usedNoteLetters.push(i);
+  		  }
+      }
+  	}
 
-	if (usedCipherLetters.length > mostEmbeddedCipher.length){
-	    mostEmbeddedCipher = usedCipherLetters;
-	    bestCipheredLetters = cipheredLetters;
-	    bestShiftAmount = shiftAmount;
-	    bestCipheredWordCount = cipheredWordCount;
-	    bestSteganographicNote = steganographicNote;
-	    bestNoteLetters = noteLetters;
-	    bestUsedNoteLetters = usedNoteLetters;
-	}
-	if (direction === "none"){
-	    bestShiftAmount = 0;
-	}
-    }
+  	//console.log("Used Ciphered Letters: " + usedCipherLetters);
+  	console.log("CipheredLetters.length: " +cipheredLetters.length + " , CipheredWordCount: " + cipheredWordCount);
+
+  	if (usedCipherLetters.length > mostEmbeddedCipher.length){
+  	    mostEmbeddedCipher = usedCipherLetters;
+  	    bestCipheredLetters = cipheredLetters;
+  	    bestShiftAmount = shiftAmount;
+  	    bestCipheredWordCount = cipheredWordCount;
+  	    bestSteganographicNote = steganographicNote;
+  	    bestNoteLetters = noteLetters;
+  	    bestUsedNoteLetters = usedNoteLetters;
+  	}
+  	if (direction === "none"){
+  	    bestShiftAmount = 0;
+  	}
+  }
     
-    var uppertable = new Array();
-    var lowertable1 = new Array();
+  var uppertable = new Array();
+  var lowertable1 = new Array();
 
-    if (mostEmbeddedCipher.length + bestCipheredWordCount < bestCipheredLetters.length){
-	for (i=0; i< mostEmbeddedCipher.length + bestCipheredWordCount; i++){
+  if (mostEmbeddedCipher.length + bestCipheredWordCount < bestCipheredLetters.length){
+    for (i=0; i< mostEmbeddedCipher.length + bestCipheredWordCount; i++){
 	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
 	    lowertable1.push("<td><strong><font color='ffc900'>" + bestCipheredLetters[i] + "</font></strong></td>");
-	}
-	for (i=mostEmbeddedCipher.length + bestCipheredWordCount; i< originalMessageLetters.length; i++){
+    }
+  	for (i=mostEmbeddedCipher.length + bestCipheredWordCount; i< originalMessageLetters.length; i++){
+  	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
+  	    lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
+  	}
+  	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
+  	var cipheredOutput2 = "(Caesar Shifted <font color='ffc900'>" + bestShiftAmount + "</font> places)";
+  	var cipheredOutput3 = "(<font color='ffc900'>" + mostEmbeddedCipher.length + "</font> of " + (actualLetterCount) + " letters used)";
+  }
+
+  if (mostEmbeddedCipher.length + bestCipheredWordCount === bestCipheredLetters.length || bestUsedNoteLetters.length < bestNoteLetters.length){
+  	var orange = bestUsedNoteLetters.length;
+  	var noteRemainder = bestNoteLetters.slice(orange).join("");
+  	bestSteganographicNote += noteRemainder;
+  	for (i=0; i< bestCipheredLetters.length; i++){
 	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
 	    lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
-	}
-	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
-	var cipheredOutput2 = "(Caesar Shifted <font color='ffc900'>" + bestShiftAmount + "</font> places)";
-	var cipheredOutput3 = "(<font color='ffc900'>" + mostEmbeddedCipher.length + "</font> of " + (actualLetterCount) + " letters used)";
-
-    }
-
-    if (mostEmbeddedCipher.length + bestCipheredWordCount === bestCipheredLetters.length || bestUsedNoteLetters.length < bestNoteLetters.length){
-	var orange = bestUsedNoteLetters.length;
-	var noteRemainder = bestNoteLetters.slice(orange).join("");
-	bestSteganographicNote += noteRemainder;
-	for (i=0; i< bestCipheredLetters.length; i++){
-	    uppertable.push("<td>" + originalMessageLetters[i] + "</td>");
-	    lowertable1.push("<td>" + bestCipheredLetters[i] + "</td>");
-	}
-	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
-	var cipheredOutput2 = "(Caesar Shifted <font color='ffc900'>" + bestShiftAmount + "</font> places)";
-	var cipheredOutput3 = "<strong><font color='ffc900'>" + "The Message Fits!" + "</strong></font>";
-    }
+  	}
+  	var cipheredOutput1 = "<table class='table table-condensed lead' style='border-top: none'><tr>" + uppertable.join("") + "</tr><tr>" + lowertable1.join("") + "</tr></table>";
+  	var cipheredOutput2 = "(Caesar Shifted <font color='ffc900'>" + bestShiftAmount + "</font> places)";
+  	var cipheredOutput3 = "<strong><font color='ffc900'>" + "The Message Fits!" + "</strong></font>";
+  }
     	
-    document.getElementById("ciphered-message1").innerHTML = cipheredOutput1;
-    document.getElementById("ciphered-message2").innerHTML = cipheredOutput2;
-    document.getElementById("ciphered-message3").innerHTML = cipheredOutput3;
-    document.getElementById("alsoletterText").innerHTML = bestSteganographicNote;
-    console.log(bestSteganographicNote);
+  document.getElementById("ciphered-message1").innerHTML = cipheredOutput1;
+  document.getElementById("ciphered-message2").innerHTML = cipheredOutput2;
+  document.getElementById("ciphered-message3").innerHTML = cipheredOutput3;
+  document.getElementById("alsoletterText").innerHTML = bestSteganographicNote;
+  console.log(bestSteganographicNote);
 }
 
 function getLetter(){
