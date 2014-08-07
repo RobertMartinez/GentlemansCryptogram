@@ -77,3 +77,11 @@ input[type="checkbox"] {
 .boxy a, footer a {
     color:#ffc900;
 }
+
+#footer {
+    clear: both;
+    position: relative;
+    z-index: 10;
+    height: 3em;
+    margin-top: -3em;
+}
