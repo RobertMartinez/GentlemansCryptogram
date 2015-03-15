@@ -1,3 +1,23 @@
+var secretSauceWords = [
+"secret", 
+"message", 
+"light", 
+"respond", 
+"continue", 
+"correspondence", 
+"seen", 
+"kind", 
+"type", 
+"hello", 
+"name", 
+"hand", 
+"here", 
+"abort", 
+"mission", 
+"plan"];
+
+// list is pre-sorted by descending length so "because" will be caught before "be"
+var mostCommonEnglishWords = [
 "transportation",
 "United States",
 "construction",
@@ -27,6 +47,9 @@
 "activities",
 "frequently",
 "instrument",
+"friendship",
+"overjoyed",
+"tradition",
 "different",
 "something",
 "important",
@@ -156,6 +179,7 @@
 "standard",
 "attached",
 "frighten",
+"received",
 "through",
 "another",
 "because",
@@ -311,6 +335,8 @@
 "combine",
 "factory",
 "license",
+"declare",
+"revive",
 "people",
 "little",
 "called",
@@ -1197,4 +1223,6 @@
 "oh",
 "am",
 "a",
-"I"
+"i"
+]
+var englishWords = mostCommonEnglishWords.concat(secretSauceWords);
