@@ -1,8 +1,8 @@
-TODOS
-[] split this file up into different modules
-[] refactor like mad
-[] reduce/eliminate all hardcoded variables
-[] understand how saveSelection and restoreSelection work
+// TODOS
+// [] split this file up into different modules
+// [] refactor like mad
+// [] reduce/eliminate all hardcoded variables
+// [] understand how saveSelection and restoreSelection work
 
 
 //saveSelection and restoreSelection are mods from the author of the Rangy library that I've implemented in order to render HTML in both the letter box and the message box, while retaining caret positioning. Seems like that's incredibly hard unless you implement Rangy with these two modified functions. 
